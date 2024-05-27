@@ -1,6 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
 import { HEADER_HEIGHT, SIDER_WIDTH } from "../../constants/dimensions";
-import "./Layout.css";
 import { HOME_PATH, MISSIONS_PATH, USERS_PATH } from "../../constants/links";
 import { Avatar, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
@@ -85,7 +84,9 @@ function Layout() {
             }}
             className="px-5 pb-5 w-full h-full overflow-y-auto"
           >
-            <Outlet />
+            <div className="bg-white shadow-md w-full min-h-full rounded-lg p-3">
+              <Outlet />
+            </div>
           </div>
         </div>
       </article>
