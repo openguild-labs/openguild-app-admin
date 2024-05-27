@@ -1,5 +1,7 @@
+import store from "@/redux";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
 
 interface IProvidersProps {
   children: React.ReactNode;
@@ -30,7 +32,9 @@ const theme = createTheme({
 const Providers = ({ children }: IProvidersProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </Provider>
     </QueryClientProvider>
   );
 };
