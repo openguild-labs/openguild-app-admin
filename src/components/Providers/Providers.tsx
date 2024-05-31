@@ -24,8 +24,11 @@ const queryClient = new QueryClient({
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#0fdbd1",
+      main: "#28123E",
     },
+  },
+  typography: {
+    fontFamily: "Space Grotesk",
   },
 });
 

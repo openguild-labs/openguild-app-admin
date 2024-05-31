@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,8 +13,25 @@
   transition: all 0.4s ease;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 * {
+  box-sizing: border-box;
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.5;
+  font-optical-sizing: auto;
+
   scrollbar-width: thin;
   scrollbar-gutter: both-edges;
-  scrollbar-color: #0fdbd199 #0fdbd11a;
+  /* scrollbar-color: #0fdbd199 #0fdbd11a; */
+}
+
+.MuiTabs-indicator {
+  width: 8px !important;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
 }

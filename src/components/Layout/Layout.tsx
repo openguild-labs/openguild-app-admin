@@ -11,10 +11,10 @@ function Layout() {
         <div className="flex-1">
           <Header />
           <div
-            style={{
-              paddingTop: HEADER_HEIGHT,
-            }}
             className="px-5 pb-5 w-full h-full overflow-y-auto"
+            style={{
+              height: `calc(100% - ${HEADER_HEIGHT}px)`,
+            }}
           >
             <div className="bg-white shadow-md w-full min-h-full rounded-lg p-3">
               <Outlet />
