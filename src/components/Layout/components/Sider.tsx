@@ -1,4 +1,4 @@
-import { COLLAPSED_SIDER_WIDTH, COLLAPSED_THRESHOLD, HEADER_HEIGHT, SIDER_WIDTH } from "@/constants/dimensions";
+import { COLLAPSED_SIDER_WIDTH, HEADER_HEIGHT, SIDER_WIDTH } from "@/constants/dimensions";
 import { HOME_PATH, MISSIONS_PATH, USERS_PATH } from "@/constants/links";
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { BiTask } from "react-icons/bi";
 import CollapsedWrapper from "./CollapsedWrapper";
 import logo from "@/assets/images/logo.png";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
-import { setClosed, showDrawerStore } from "@/redux/slides/showDrawer";
+import { closeDrawer, layoutStore, setCollapsedSider } from "@/redux/slides/layout";
 
 function a11yProps(index: number) {
   return {
@@ -19,12 +19,12 @@ function a11yProps(index: number) {
 
 const linkItems = [
   {
-    label: "Users",
+    label: "User",
     icon: <FaRegUser size={18} />,
     to: USERS_PATH,
   },
   {
-    label: "Missions",
+    label: "Mission",
     icon: <BiTask size={18} />,
     to: MISSIONS_PATH,
   },
@@ -39,16 +39,17 @@ function Sider() {
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
-  const [collapsed, setCollapsed] = useState(window.innerWidth < COLLAPSED_THRESHOLD);
   const dispatch = useAppDispatch();
-  const { value: isShowedDrawer } = useAppSelector(showDrawerStore);
+  const { isOpenedDrawer } = useAppSelector(layoutStore);
+  const { isCollapsedSider: collapsed } = useAppSelector(layoutStore);
 
   return (
     <>
       <aside
-        className="h-screen bg-white shadow-md transition-effect lg:block hidden z-1"
+        className="h-screen bg-white shadow-md transition-effect xl:block hidden z-1"
         style={{
           width: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,
+          minWidth: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,
         }}
       >
         <div
@@ -66,7 +67,7 @@ function Sider() {
           <button
             className="w-5 aspect-square rounded-full flex items-center justify-center border-[3px] border-primary-color shrink-0"
             onClick={() => {
-              setCollapsed(!collapsed);
+              dispatch(setCollapsedSider(!collapsed));
             }}
           >
             {!collapsed && <div className="w-[6px] aspect-square bg-primary-color rounded-full" />}
@@ -99,7 +100,7 @@ function Sider() {
                       }}
                     >
                       <CollapsedWrapper collapsed={collapsed}>
-                        <span className="w-full">{item.label}</span>
+                        <span className="w-full text-sm md:text-base">{item.label}</span>
                       </CollapsedWrapper>
                     </span>
                   </div>
@@ -113,16 +114,16 @@ function Sider() {
         </Tabs>
       </aside>
       <Drawer
-        open={isShowedDrawer}
+        open={isOpenedDrawer}
         onClose={() => {
-          dispatch(setClosed());
+          dispatch(closeDrawer());
         }}
       >
         <Box
           sx={{ width: 250 }}
           role="presentation"
           onClick={() => {
-            dispatch(setClosed());
+            dispatch(closeDrawer());
           }}
         >
           <List>
@@ -150,7 +151,7 @@ function Sider() {
                       {item.icon}
                     </ListItemIcon>
                     <ListItemText
-                      primary={item.label}
+                      primary={<span className="text-sm md:text-base">{item.label}</span>}
                       style={{
                         color: currentTabIndex === index ? "#fff" : "#000",
                       }}

@@ -1,30 +1,36 @@
-import { HEADER_HEIGHT } from "@/constants/dimensions";
-import { useAppDispatch } from "@/redux/reduxHooks";
-import { setShowed } from "@/redux/slides/showDrawer";
+import { COLLAPSED_SIDER_WIDTH, HEADER_HEIGHT, SIDER_WIDTH } from "@/constants/dimensions";
+import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
+import { layoutStore, toggleDrawer } from "@/redux/slides/layout";
 import { Avatar } from "@mui/material";
 import { SlMenu } from "react-icons/sl";
 
 function Header() {
   const dispatch = useAppDispatch();
+  const { isCollapsedSider: collapsed } = useAppSelector(layoutStore);
+
   return (
     <header
-      className="flex items-center w-full p-5 bg-neutral-100 transition-effect"
+      className="transition-effect z-10 fixed top-0 right-0 max-xl:!left-0 max-xl:transition-none"
       style={{
         height: HEADER_HEIGHT,
+        left: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,
       }}
     >
-      <div className="bg-white w-full h-full rounded-lg shadow-md flex items-center justify-between lg:justify-end p-3">
-        <button
-          className="p-2 lg:hidden"
-          onClick={() => {
-            dispatch(setShowed());
-          }}
-        >
-          <SlMenu size={20} className="text-primary-color" />
-        </button>
-        <div className="flex items-center gap-x-2">
-          <h2 className="text-neutral-700 text-lg">Administrator</h2>
-          <Avatar>AD</Avatar>
+      <div className="flex flex-col items-center w-full px-5 pt-5 relative">
+        <div className="h-10 bg-neutral-100 absolute top-0 left-0 right-[10px] z-0" />
+        <div className="bg-white z-10 transition-effect w-full h-full rounded-lg shadow-md flex items-center justify-between xl:justify-end p-3">
+          <button
+            className="p-2 xl:hidden"
+            onClick={() => {
+              dispatch(toggleDrawer());
+            }}
+          >
+            <SlMenu size={20} className="text-primary-color" />
+          </button>
+          <div className="flex items-center gap-x-2">
+            <h2 className="text-neutral-700 text-base md:text-lg">Administrator</h2>
+            <Avatar>AD</Avatar>
+          </div>
         </div>
       </div>
     </header>

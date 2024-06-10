@@ -1,19 +1,35 @@
 import { normalEmailRegex, studentEmailRegex } from "@/constants/regex";
 import { supabase } from "../..";
+import { message } from "antd";
 
-export const getUsers = async (field: keyof TUserModel, isAsc: boolean) => {
+export const getUsers = async ({ field, isAsc, pagination }: TUserFilter) => {
+  const start = pagination.page * pagination.limit;
+  const result: TUserListResponse = {
+    list: [],
+    total: 0,
+  };
   const { data, error } = await supabase
     .from("user")
     .select<string, TUserModel>()
     .is("deleted_at", null)
-    .order(field, { ascending: isAsc });
+    .order(field, { ascending: isAsc })
+    .range(start, start + pagination.limit - 1);
 
   if (error !== null || data === null) {
-    console.error("Error fetching users", error);
-    return [];
+    message.error("Error fetching users");
+    return result;
   }
 
-  return data;
+  const { data: totalData, error: totalError } = await supabase.from("user").select("id", { count: "exact" }).is("deleted_at", null);
+  if (totalError !== null || totalData === null) {
+    message.error("Error fetching total users");
+    return result;
+  }
+
+  result.list = data;
+  result.total = totalData.length;
+
+  return result;
 };
 
 export const updateUser = async (walletAddress: string, userUpdate: TUserUpdate) => {

@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import userSortedFieldSlide from "./slides/userSortedField";
-import showDrawerSlide from "./slides/showDrawer";
+import userFilterSlide from "./slides/userFilter";
+import layoutSlide from "./slides/layout";
 
 export const rootReducer = combineReducers({
-  showDrawer: showDrawerSlide,
-  userSortedField: userSortedFieldSlide,
+  userFilter: userFilterSlide,
+  layout: layoutSlide,
 });

@@ -5,7 +5,7 @@ import { MenuItem } from "@mui/material";
 // import { IoSearchOutline } from "react-icons/io5";
 import { FaSortAlphaDown, FaSortAlphaDownAlt } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
-import { resetField, setField, userSortedFieldStore } from "@/redux/slides/userSortedField";
+import { resetField, setField, userFilterStore } from "@/redux/slides/userFilter";
 
 const DEFAULT = "default";
 const ASC = "asc";
@@ -36,7 +36,7 @@ function Options({ keyOption: key }: IOptionsProps): JSX.Element {
     event.stopPropagation();
     setAnchorEl(null);
   };
-  const { field } = useAppSelector(userSortedFieldStore);
+  const { field } = useAppSelector(userFilterStore);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -68,9 +68,6 @@ function Options({ keyOption: key }: IOptionsProps): JSX.Element {
         }}
         className="w-[200px]"
       >
-        {/* <MenuItem onClick={handleClose}>
-          Search <IoSearchOutline />
-        </MenuItem> */}
         <MenuItem
           onClick={(event) => {
             if (icon.type === ASC) {

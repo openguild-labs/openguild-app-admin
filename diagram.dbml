@@ -1,0 +1,41 @@
+Project Tabi {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # ChainCohort Database
+    **markdown content here**
+  '''
+}
+
+Table user as u {
+    id int [pk, increment]
+    email text
+    wallet_address text
+    first_name text
+    last_name text
+    is_student boolean
+}
+
+Table mission as m {
+    id int [pk, increment]
+    title text
+    description text
+    start_date text
+    end_date text
+    banner text
+}
+
+Table task as t {
+    id int [pk, increment]
+    mission_id int [ref: > m.id]
+    type text
+    name text
+    description text
+    action text
+}
+
+Table completed_task as ct {
+    id int [pk, increment]
+    user_id int [ref: > u.id]
+    task_id int [ref: > t.id]
+    completed_date date
+}

@@ -1,6 +1,8 @@
+import { antdTheme, muiTheme } from "@/config/theme";
 import store from "@/redux";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ConfigProvider } from "antd";
 import { Provider } from "react-redux";
 
 interface IProvidersProps {
@@ -21,23 +23,14 @@ const queryClient = new QueryClient({
   },
 });
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#28123E",
-    },
-  },
-  typography: {
-    fontFamily: "Space Grotesk",
-  },
-});
-
 const Providers = ({ children }: IProvidersProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </Provider>
+      <ConfigProvider theme={antdTheme}>
+        <Provider store={store}>
+          <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
+        </Provider>
+      </ConfigProvider>
     </QueryClientProvider>
   );
 };

@@ -5,10 +5,10 @@ export const userKey = {
   users: "users",
 };
 
-export const useGetUsers = (sortedField: TUserSortedField) => {
+export const useGetUsers = (userFilter: TUserFilter) => {
   return useQuery({
-    queryKey: [userKey.users, sortedField.field, sortedField.isAsc],
-    queryFn: () => getUsers(sortedField.field, sortedField.isAsc),
+    queryKey: [userKey.users, userFilter.field, userFilter.isAsc, userFilter.pagination.page, userFilter.pagination.limit],
+    queryFn: () => getUsers(userFilter),
   });
 };
 

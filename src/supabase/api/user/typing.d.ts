@@ -19,3 +19,8 @@ type TUserModel = {
   last_name: string;
   is_student: boolean;
 };
+
+type TUserListResponse = {
+  list: TUserModel[];
+  total: number;
+};
