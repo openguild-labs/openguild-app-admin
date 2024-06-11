@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TRootState } from "..";
 
-const LIMIT_DEFAULT = 10;
-const PAGE_DEFAULT = 0;
+export const LIMIT_DEFAULT = 10;
+export const PAGE_DEFAULT = 0;
 
 const initialState: TUserFilter = {
   field: "id",

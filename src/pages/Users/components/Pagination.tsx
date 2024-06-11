@@ -1,63 +1,33 @@
 import { useAppDispatch } from "@/redux/reduxHooks";
-import { setPagination } from "@/redux/slides/userFilter";
-import { TablePagination } from "@mui/material";
-import { ChangeEvent, useEffect, useState } from "react";
+import { LIMIT_DEFAULT, PAGE_DEFAULT, setPagination } from "@/redux/slides/userFilter";
+import { Pagination as PaginationMUI } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 interface IPaginationProps {
   total: number;
 }
 
-const LIMIT_DEFAULT = 10;
-const PAGE_DEFAULT = 0;
-const ROW_PER_PAGE_OPTIONS = [5, 10];
-
 function Pagination({ total }: IPaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const p = searchParams.get("p") === null ? PAGE_DEFAULT : parseInt(searchParams.get("p") as string);
-  let l = searchParams.get("l") === null ? LIMIT_DEFAULT : parseInt(searchParams.get("l") as string);
-  if (!ROW_PER_PAGE_OPTIONS.includes(l)) {
-    l = LIMIT_DEFAULT;
-  }
+  const pParam = searchParams.get("p");
+  const p = pParam === null ? PAGE_DEFAULT + 1 : parseInt(pParam as string);
 
   const [page, setPage] = useState(p);
-  const [rowsPerPage, setRowsPerPage] = useState(l);
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
-    setSearchParams({ p: newPage.toString(), l: rowsPerPage.toString() });
-  };
-
-  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-    setSearchParams({ p: "0", l: event.target.value });
+    setSearchParams({ p: newPage.toString() });
   };
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(setPagination({ limit: rowsPerPage, page }));
-  }, [dispatch, page, rowsPerPage]);
+    dispatch(setPagination({ page: page - 1, limit: LIMIT_DEFAULT }));
+  }, [dispatch, page]);
 
   return (
-    <table className="w-full flex justify-end">
-      <tbody>
-        <tr>
-          <TablePagination
-            className="w-full"
-            labelRowsPerPage="Limit"
-            rowsPerPageOptions={ROW_PER_PAGE_OPTIONS}
-            count={total}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            style={{
-              borderBottom: "none",
-            }}
-          />
-        </tr>
-      </tbody>
-    </table>
+    <div className="w-full flex justify-end mt-4">
+      <PaginationMUI count={Math.ceil(total / LIMIT_DEFAULT)} color="primary" page={page} onChange={handleChangePage} />
+    </div>
   );
 }
 

@@ -35,7 +35,7 @@ function Sider() {
   const currentPath = location.pathname;
   const currentTabIndex = linkItems.findIndex((item) => currentPath.includes(item.to));
 
-  const [tabValue, setTabValue] = useState(currentTabIndex);
+  const [tabValue, setTabValue] = useState(currentTabIndex > -1 ? currentTabIndex : 0);
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };

@@ -1,19 +1,20 @@
 import { styled, TableCell, tableCellClasses, TableHead, TableRow } from "@mui/material";
 import Options from "./Options";
+import colors from "@/config/colors";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    background: "transparent",
+    background: colors["primary-color"],
   },
 }));
 
 function TableHeader() {
   return (
     <>
-      <TableHead className="bg-primary-color">
-        <TableRow className="bg-primary-color">
+      <TableHead>
+        <TableRow>
           <StyledTableCell className="w-[30%] min-w-[300px]">
             <div className="text-white font-bold text-sm md:text-base my-2 border-r border-white flex justify-between items-center cell-header">
               Email

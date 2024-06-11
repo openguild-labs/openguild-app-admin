@@ -25,7 +25,7 @@ function Users() {
       </div>
       <div className="bg-white shadow-md rounded-lg p-3 flex-1">
         <TableContainer component={TableWrapper}>
-          <Table aria-label="simple table">
+          <Table stickyHeader aria-label="simple table">
             <TableHeader />
             <TableBody data={data?.list || []} isLoading={isLoading} />
           </Table>
