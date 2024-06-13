@@ -1,0 +1,27 @@
+.layout-body-80 {
+  margin-left: 80px;
+}
+
+.layout-body-260 {
+  margin-left: 260px;
+}
+
+.layout-header-80 {
+  padding-left: 80px;
+}
+
+.layout-header-260 {
+  padding-left: 260px;
+}
+
+@media not all and (min-width: 1280px) {
+  .layout-body-80,
+  .layout-body-260 {
+    margin-left: 0;
+  }
+
+  .layout-header-80,
+  .layout-header-260 {
+    padding-left: 0;
+  }
+}

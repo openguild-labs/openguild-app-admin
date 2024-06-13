@@ -1,8 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import userFilterSlide from "./slides/userFilter";
+import userQuerySlide from "./slides/userQuery";
 import layoutSlide from "./slides/layout";
+import missionQuerySlide from "./slides/missionQuery";
 
 export const rootReducer = combineReducers({
-  userFilter: userFilterSlide,
+  missionQuery: missionQuerySlide,
+  userQuery: userQuerySlide,
   layout: layoutSlide,
 });

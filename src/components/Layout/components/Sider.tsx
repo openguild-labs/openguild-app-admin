@@ -46,7 +46,7 @@ function Sider() {
   return (
     <>
       <aside
-        className="h-screen bg-white shadow-md transition-effect xl:block hidden z-1"
+        className="fixed top-0 left-0 bottom-0 bg-white shadow-md transition-effect xl:block hidden z-20"
         style={{
           width: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,
           minWidth: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,

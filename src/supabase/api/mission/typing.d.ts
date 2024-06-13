@@ -13,3 +13,37 @@ type TMissionCreation<TBanner> = {
   end_date: string;
   tasks: TTaskCreation[];
 };
+
+type TMissionResponse = {
+  id: number;
+  title: string;
+  status: string;
+  participants: number;
+  created_at: string;
+};
+
+type TMissionListResponse = {
+  list: TMissionResponse[];
+  total: number;
+};
+
+type TMissionDetailResponse = TMissionModel & {
+  banner_url: string;
+  tasks: TTaskModel[];
+};
+
+type TMissionUpdateMap = {
+  key: keyof TMissionModel;
+  value: string;
+};
+
+type TMissionUpdate = {
+  missionID: string;
+  updates: TMissionUpdateMap[];
+};
+
+type TUpdateBanner = {
+  missionID: string;
+  oldBanner: string;
+  file: UploadFile;
+};

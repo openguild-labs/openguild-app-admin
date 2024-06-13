@@ -2,14 +2,14 @@ import { useGetUsers } from "@/supabase/api/user/services";
 import { Breadcrumbs, Table, TableContainer, Typography } from "@mui/material";
 import TableHeader from "./components/TableHeader";
 import TableBody from "./components/TableBody";
-import TableWrapper from "./components/TableWrapper";
 import { useSelector } from "react-redux";
 import Pagination from "./components/Pagination";
-import { userFilterStore } from "@/redux/slides/userFilter";
+import { userQueryStore } from "@/redux/slides/userQuery";
+import TableWrapper from "@/components/TableWrapper";
 
 function Users() {
-  const userFilter = useSelector(userFilterStore);
-  const { data, isLoading } = useGetUsers(userFilter);
+  const userQuery = useSelector(userQueryStore);
+  const { data, isLoading } = useGetUsers(userQuery);
 
   return (
     <div className="flex-1 flex flex-col">
@@ -25,7 +25,7 @@ function Users() {
       </div>
       <div className="bg-white shadow-md rounded-lg p-3 flex-1">
         <TableContainer component={TableWrapper}>
-          <Table stickyHeader aria-label="simple table">
+          <Table stickyHeader aria-label="user table">
             <TableHeader />
             <TableBody data={data?.list || []} isLoading={isLoading} />
           </Table>

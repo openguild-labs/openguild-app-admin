@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TRootState } from "..";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/constants/pagination";
 
-export const LIMIT_DEFAULT = 10;
-export const PAGE_DEFAULT = 0;
-
-const initialState: TUserFilter = {
+const initialState: TUserQuery = {
   field: "id",
   isAsc: true,
   pagination: {
@@ -13,11 +11,11 @@ const initialState: TUserFilter = {
   },
 };
 
-const userFilter = createSlice({
-  name: "userFilter",
+const userQuery = createSlice({
+  name: "userQuery",
   initialState,
   reducers: {
-    setField(state, action: PayloadAction<Partial<TUserFilter>>) {
+    setField(state, action: PayloadAction<Partial<TUserQuery>>) {
       if (action.payload.field === undefined || action.payload.isAsc === undefined) {
         return;
       }
@@ -42,6 +40,6 @@ const userFilter = createSlice({
   },
 });
 
-export const userFilterStore = (state: TRootState) => state.userFilter;
-export const { setField, resetField, setPagination, resetPagination } = userFilter.actions;
-export default userFilter.reducer;
+export const userQueryStore = (state: TRootState) => state.userQuery;
+export const { setField, resetField, setPagination, resetPagination } = userQuery.actions;
+export default userQuery.reducer;

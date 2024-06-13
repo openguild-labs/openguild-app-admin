@@ -5,7 +5,7 @@ import { MenuItem } from "@mui/material";
 // import { IoSearchOutline } from "react-icons/io5";
 import { FaSortAlphaDown, FaSortAlphaDownAlt } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
-import { resetField, setField, userFilterStore } from "@/redux/slides/userFilter";
+import { resetField, setField, userQueryStore } from "@/redux/slides/userQuery";
 
 const DEFAULT = "default";
 const ASC = "asc";
@@ -36,7 +36,7 @@ function Options({ keyOption: key }: IOptionsProps): JSX.Element {
     event.stopPropagation();
     setAnchorEl(null);
   };
-  const { field } = useAppSelector(userFilterStore);
+  const { field } = useAppSelector(userQueryStore);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

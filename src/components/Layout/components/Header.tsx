@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { layoutStore, toggleDrawer } from "@/redux/slides/layout";
 import { Avatar } from "@mui/material";
 import { SlMenu } from "react-icons/sl";
+import "./style.css";
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -10,15 +11,16 @@ function Header() {
 
   return (
     <header
-      className="transition-effect z-10 fixed top-0 right-0 max-xl:!left-0 max-xl:transition-none"
+      className={`transition-effect fixed top-0 right-0 left-0 z-10 ${
+        collapsed ? `layout-header-${COLLAPSED_SIDER_WIDTH}` : `layout-header-${SIDER_WIDTH}`
+      }`}
       style={{
         height: HEADER_HEIGHT,
-        left: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,
       }}
     >
       <div className="flex flex-col items-center w-full px-5 pt-5 relative">
         <div className="h-10 bg-neutral-100 absolute top-0 left-0 right-[10px] z-0" />
-        <div className="bg-white z-10 transition-effect w-full h-full rounded-lg shadow-md flex items-center justify-between xl:justify-end p-3">
+        <div className="bg-white z-10 transition-effect w-full h-[60px] rounded-lg shadow-md flex items-center justify-between xl:justify-end p-3">
           <button
             className="p-2 xl:hidden"
             onClick={() => {

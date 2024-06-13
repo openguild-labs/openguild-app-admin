@@ -1,14 +1,16 @@
-import EllipsisTypo from "@/components/EllipsisTypo";
+import { MISSIONS_PATH } from "@/constants/links";
 import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Empty } from "antd";
-import { FaCheckCircle } from "react-icons/fa";
+import EllipsisTypo from "@/components/EllipsisTypo";
 
 interface ITableBodyProps {
-  data: TUserModel[];
+  data: TMissionResponse[];
   isLoading: boolean;
 }
 
 function TableBody({ data, isLoading }: ITableBodyProps) {
+  const navigate = useNavigate();
   if (isLoading) {
     return (
       <TableBodyMUI>
@@ -29,7 +31,7 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
         <TableRow>
           <TableCell colSpan={5} style={{ borderBottom: "none" }}>
             <div className="flex justify-center">
-              <Empty description="Have no user" />
+              <Empty description="Have no mission" />
             </div>
           </TableCell>
         </TableRow>
@@ -40,23 +42,24 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
   return (
     <TableBodyMUI>
       {data.map((row) => (
-        <TableRow key={row.id}>
-          <TableCell className="w-[30%]">
-            <div className="max-w-[280px] text-sm md:text-base">
-              <EllipsisTypo text={row.email} />
-            </div>
+        <TableRow
+          key={row.id}
+          className="transition-effect hover:cursor-pointer hover:bg-gray-200"
+          onClick={() => {
+            navigate(`${MISSIONS_PATH}/${row.id}`);
+          }}
+        >
+          <TableCell className="w-[40%]">
+            <EllipsisTypo text={row.title} />
           </TableCell>
           <TableCell>
-            <div className="text-sm md:text-base">{row.wallet_address.substring(0, 5) + "..." + row.wallet_address.slice(-5)}</div>
+            <div className="text-sm md:text-base">{row.status}</div>
           </TableCell>
           <TableCell>
-            <div className="max-w-[140px] text-sm md:text-base text-ellipsis overflow-hidden">{row.first_name || "--"}</div>
+            <div className="text-sm md:text-base text-ellipsis overflow-hidden">{row.participants}</div>
           </TableCell>
           <TableCell>
-            <div className="max-w-[140px] text-sm md:text-base text-ellipsis overflow-hidden">{row.last_name || "--"}</div>
-          </TableCell>
-          <TableCell align="center">
-            <div className="flex justify-center">{row.is_student && <FaCheckCircle className="text-green-500 text-base md:text-lg" />}</div>
+            <div className="text-sm md:text-base text-ellipsis overflow-hidden">{row.created_at}</div>
           </TableCell>
         </TableRow>
       ))}

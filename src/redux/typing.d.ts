@@ -1,6 +1,12 @@
-type TUserFilter = {
+type TUserQuery = {
   field: keyof TUserModel;
   isAsc: boolean;
+  pagination: TPagination;
+};
+
+type TMissionQuery = {
+  searchingTitle: string;
+  status: string;
   pagination: TPagination;
 };
 

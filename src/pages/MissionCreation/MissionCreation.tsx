@@ -60,7 +60,6 @@ function MissionCreation() {
                     const values = form.getFieldsValue(formFields);
                     const startDate = new Date(values.duration[0]);
                     const endDate = new Date(values.duration[1]);
-                    console.log(values);
                     mutate(
                       {
                         banner: values.banner,

@@ -1,22 +1,13 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getUsers, updateUser } from "./callers";
+import { useQuery } from "@tanstack/react-query";
+import { getUsers } from "./callers";
 
 export const userKey = {
   users: "users",
 };
 
-export const useGetUsers = (userFilter: TUserFilter) => {
+export const useGetUsers = (userQuery: TUserQuery) => {
   return useQuery({
-    queryKey: [userKey.users, userFilter.field, userFilter.isAsc, userFilter.pagination.page, userFilter.pagination.limit],
-    queryFn: () => getUsers(userFilter),
-  });
-};
-
-export const useUpdateUser = (walletAddress: string) => {
-  return useMutation({
-    mutationFn: (userUpdate: TUserUpdate) => updateUser(walletAddress, userUpdate),
-    onSuccess: (resp) => {
-      console.log(resp);
-    },
+    queryKey: [userKey.users, userQuery.field, userQuery.isAsc, userQuery.pagination.page, userQuery.pagination.limit],
+    queryFn: () => getUsers(userQuery),
   });
 };

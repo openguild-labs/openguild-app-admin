@@ -1,6 +1,6 @@
 import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/constants/pagination";
 import { useAppDispatch } from "@/redux/reduxHooks";
-import { setPagination } from "@/redux/slides/userQuery";
+import { setPagination } from "@/redux/slides/missionQuery";
 import { Pagination as PaginationMUI } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
