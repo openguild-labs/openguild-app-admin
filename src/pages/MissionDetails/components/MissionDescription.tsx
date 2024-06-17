@@ -71,7 +71,7 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
           />
         </div>
       ) : (
-        <span>{description}</span>
+        <pre className="w-full text-wrap text-base">{description}</pre>
       )}
     </div>
   );

@@ -3,9 +3,8 @@ import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { Typography } from "antd";
 import { useState } from "react";
-import { CiMenuKebab } from "react-icons/ci";
+import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import colors from "@/config/colors";
 import EllipsisTypo from "@/components/EllipsisTypo";
 
@@ -67,12 +66,12 @@ function TaskItem({ title, description, onClickMenu }: ITaskItemProps) {
             }}
             className="transition-effect flex-center p-1 hover:bg-primary-color/20 rounded"
           >
-            <CiMenuKebab />
+            <PiDotsThreeOutlineVerticalFill />
           </div>
         </div>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>{description}</Typography>
+        <pre className="w-full text-base text-wrap">{description}</pre>
       </AccordionDetails>
     </Accordion>
   );

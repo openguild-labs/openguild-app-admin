@@ -4,12 +4,15 @@ import { GoPlusCircle } from "react-icons/go";
 import TaskCreationForm from "./TaskCreationForm";
 
 import TaskItem from "./TaskItem";
+import { useAppDispatch } from "@/redux/reduxHooks";
+import { resetIntentLinkState } from "@/redux/slides/intentLinkParams";
 
 interface ICreateTaskProps {
   form: FormInstance;
 }
 
 function CreateTask({ form }: ICreateTaskProps) {
+  const dispatch = useAppDispatch();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [tasks, setTasks] = useState<TTask[]>([]);
   const [editTask, setEditTask] = useState<{ index: number; task: TTask | undefined }>({ index: -1, task: undefined });
@@ -86,27 +89,30 @@ function CreateTask({ form }: ICreateTaskProps) {
         onClose={() => {
           setEditTask({ index: -1, task: undefined });
           setOpenDrawer(false);
+          dispatch(resetIntentLinkState());
         }}
         width={500}
       >
-        <TaskCreationForm
-          onFinish={(value) => {
-            if (editTask.index !== -1) {
-              const newTasks = tasks.map((task, index) => {
-                if (index === editTask.index) {
-                  return value;
-                }
-                return task;
-              });
-              updateTasks(newTasks);
-              setEditTask({ index: -1, task: undefined });
-            } else {
-              updateTasks([...tasks, value]);
-            }
-            setOpenDrawer(false);
-          }}
-          editTask={editTask.task}
-        />
+        {openDrawer && (
+          <TaskCreationForm
+            onFinish={(value) => {
+              if (editTask.index !== -1) {
+                const newTasks = tasks.map((task, index) => {
+                  if (index === editTask.index) {
+                    return value;
+                  }
+                  return task;
+                });
+                updateTasks(newTasks);
+                setEditTask({ index: -1, task: undefined });
+              } else {
+                updateTasks([...tasks, value]);
+              }
+              setOpenDrawer(false);
+            }}
+            editTask={editTask.task}
+          />
+        )}
       </Drawer>
     </div>
   );
