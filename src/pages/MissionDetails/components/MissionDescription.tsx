@@ -50,7 +50,7 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
         setEditMode(true);
       }}
     >
-      <p className="text-lg font-bold text-primary-color">Description</p>
+      <p className="text-base xl:text-lg font-bold text-primary-color">Description</p>
       {editMode ? (
         <div className="relative">
           <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />
@@ -67,11 +67,11 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
                 onCancel();
               }
             }}
-            className="text-base"
+            className="text-sm xl:text-base"
           />
         </div>
       ) : (
-        <pre className="w-full text-wrap text-base">{description}</pre>
+        <pre className="w-full text-wrap text-sm xl:text-base">{description}</pre>
       )}
     </div>
   );

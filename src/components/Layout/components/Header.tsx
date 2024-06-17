@@ -30,7 +30,7 @@ function Header() {
             <SlMenu size={20} className="text-primary-color" />
           </button>
           <div className="flex items-center gap-x-2">
-            <h2 className="text-neutral-700 text-base md:text-lg">Administrator</h2>
+            <h2 className="text-neutral-700 text-base xl:text-lg">Administrator</h2>
             <Avatar>AD</Avatar>
           </div>
         </div>

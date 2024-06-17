@@ -66,7 +66,7 @@ function CreateTask({ form }: ICreateTaskProps) {
         onClick={() => {
           setOpenDrawer(true);
         }}
-        className="w-full"
+        className="w-full text-sm xl:text-base"
       >
         Add task
       </Button>
@@ -83,7 +83,7 @@ function CreateTask({ form }: ICreateTaskProps) {
         <Input type="hidden" />
       </Form.Item>
       <Drawer
-        title="Task creation form"
+        title={<span className="text-base xl:text-lg">Task creation form</span>}
         placement="right"
         open={openDrawer}
         onClose={() => {

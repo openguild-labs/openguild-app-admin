@@ -57,7 +57,7 @@ function TaskCreationForm({ onFinish, editTask }: ITaskCreationFormProps) {
       <TaskFormItems form={form} isTwitter={isTwitter} isManual={isManual} />
       <div className="flex justify-end mt-4">
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="mt-2">
+          <Button type="primary" htmlType="submit" className="mt-2 text-sm xl:text-base">
             {editTask !== undefined ? "Change" : "Create"}
           </Button>
         </Form.Item>

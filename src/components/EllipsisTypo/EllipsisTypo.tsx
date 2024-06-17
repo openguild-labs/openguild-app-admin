@@ -13,7 +13,7 @@ function EllipsisTypo({ text }: IEllipsisTypoProps) {
         ellipsis={{
           rows: 1,
         }}
-        className="ant-typo-mb-0 text-sm md:text-base"
+        className="ant-typo-mb-0 text-sm xl:text-base"
         style={{
           width: width ? width - 20 : "auto",
         }}

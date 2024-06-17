@@ -92,11 +92,11 @@ function MissionBanner({ bannerURL, banner, missionID, refetch }: IMissionBanner
             }}
             className="h-full"
           >
-            <div className="flex flex-col items-center">
-              <p className="text-[24px]">
+            <div className="flex flex-col items-center gap-y-2">
+              <p className="text-[32px]">
                 <HiOutlineInbox />
               </p>
-              <p>Click or drag file to this area to upload Mission banner</p>
+              <p className="text-sm xl:text-base">Click or drag file to this area to upload Mission banner</p>
             </div>
           </Dragger>
         ) : (

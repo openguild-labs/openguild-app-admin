@@ -53,13 +53,13 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
             <EllipsisTypo text={row.title} />
           </TableCell>
           <TableCell>
-            <div className="text-sm md:text-base">{row.status}</div>
+            <div className="text-sm xl:text-base">{row.status}</div>
           </TableCell>
           <TableCell>
-            <div className="text-sm md:text-base text-ellipsis overflow-hidden">{row.participants}</div>
+            <div className="text-sm xl:text-base text-ellipsis overflow-hidden">{row.participants}</div>
           </TableCell>
           <TableCell>
-            <div className="text-sm md:text-base text-ellipsis overflow-hidden">{row.created_at}</div>
+            <div className="text-sm xl:text-base text-ellipsis overflow-hidden">{row.created_at}</div>
           </TableCell>
         </TableRow>
       ))}

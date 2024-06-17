@@ -15,18 +15,18 @@ function TableHeader() {
       <TableHead>
         <TableRow>
           <StyledTableCell className="w-[40%] min-w-[380px]">
-            <div className="text-white font-bold text-sm md:text-base my-2 border-r border-white flex justify-between items-center cell-header">
+            <div className="text-white font-bold text-sm xl:text-base my-2 border-r border-white flex justify-between items-center cell-header">
               <span>Title</span>
             </div>
           </StyledTableCell>
           <StyledTableCell>
-            <div className="text-white font-bold text-sm md:text-base my-2 border-r border-white min-w-[140px]">Status </div>
+            <div className="text-white font-bold text-sm xl:text-base my-2 border-r border-white min-w-[140px]">Status </div>
           </StyledTableCell>
           <StyledTableCell>
-            <div className="text-white font-bold text-sm md:text-base my-2 border-r border-white min-w-[100px]">Participants</div>
+            <div className="text-white font-bold text-sm xl:text-base my-2 border-r border-white min-w-[100px]">Participants</div>
           </StyledTableCell>
           <StyledTableCell>
-            <div className="text-white font-bold text-sm md:text-base my-2 min-w-[90px] flex justify-between items-center">Created at</div>
+            <div className="text-white font-bold text-sm xl:text-base my-2 min-w-[90px] flex justify-between items-center">Created at</div>
           </StyledTableCell>
         </TableRow>
       </TableHead>

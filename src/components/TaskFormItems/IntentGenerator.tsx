@@ -20,7 +20,7 @@ const FollowIntentContent = () => {
     <div>
       <Input
         placeholder="Enter screen name"
-        className="mt-3"
+        className="mt-3 text-sm xl:text-base"
         disabled={userID !== ""}
         value={screenName}
         onChange={(event) => {
@@ -30,7 +30,7 @@ const FollowIntentContent = () => {
       />
       <Input
         placeholder="Enter user ID"
-        className="my-3"
+        className="my-3 text-sm xl:text-base"
         disabled={screenName !== ""}
         value={userID}
         onChange={(event) => {
@@ -54,7 +54,7 @@ const TweetIDIntentContent = () => {
         dispatch(setParamsValue({ tweetID: event.target.value }));
       }}
       placeholder="Enter tweet ID"
-      className="my-3"
+      className="my-3 text-sm xl:text-base"
       allowClear
     />
   );
@@ -75,9 +75,10 @@ const TweetIntentContent = () => {
         placeholder="What do you want to tweet?"
         rows={2}
         allowClear
+        className="text-sm xl:text-base"
       />
       <div className="flex gap-x-2 items-center mt-1">
-        <h3 className="text-base text-black my-2">Hashtags</h3>
+        <h3 className="text-sm xl:text-base text-black my-2">Hashtags</h3>
         <AddTag />
       </div>
     </div>
@@ -108,17 +109,17 @@ function IntentGenerator() {
   return (
     <div className="mt-2">
       <Divider orientation="left">
-        <span className="text-sm">Intent Link Generator</span>
+        <span className="text-xs xl:text-sm">Intent Link Generator</span>
       </Divider>
       <div className="flex gap-x-3">
-        <h4 className="text-base text-black my-1">Action type</h4>
+        <h4 className="text-sm xl:text-base text-black my-1">Action type</h4>
         <Select
           value={type}
           onChange={(value) => {
             dispatch(setType(value));
           }}
           options={getOptions()}
-          className="flex-1"
+          className="flex-1 text-sm xl:text-base"
         />
       </div>
       {getContent(type)}

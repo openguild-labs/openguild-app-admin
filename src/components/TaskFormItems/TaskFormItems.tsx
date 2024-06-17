@@ -26,7 +26,7 @@ function TaskFormItems({ form, isManual: isManualDefault = false, isTwitter: isT
 
   return (
     <>
-      <h4 className="text-base text-black font-bold mb-1">Name</h4>
+      <h4 className="text-sm xl:text-base text-black font-bold mb-1">Name</h4>
       <Form.Item
         name="name"
         rules={[
@@ -36,9 +36,9 @@ function TaskFormItems({ form, isManual: isManualDefault = false, isTwitter: isT
           },
         ]}
       >
-        <Input placeholder="What do you want users to do?" />
+        <Input placeholder="What do you want users to do?" className="text-sm xl:text-base" />
       </Form.Item>
-      <h4 className="text-base text-black font-bold my-1">Type</h4>
+      <h4 className="text-sm xl:text-base text-black font-bold my-1">Type</h4>
       <Form.Item
         name="type"
         rules={[
@@ -50,7 +50,7 @@ function TaskFormItems({ form, isManual: isManualDefault = false, isTwitter: isT
       >
         <Select
           labelInValue
-          className="w-full"
+          className="w-full text-sm xl:text-base"
           placeholder="Select task type"
           options={[
             {
@@ -74,7 +74,7 @@ function TaskFormItems({ form, isManual: isManualDefault = false, isTwitter: isT
       </Form.Item>
       {isTwitter && !isManual && <IntentGenerator />}
       <div className="flex items-center gap-x-3">
-        <h4 className="text-base text-black font-bold my-1">Action link</h4>
+        <h4 className="text-sm xl:text-base text-black font-bold my-1">Action link</h4>
         {isTwitter && (
           <Checkbox
             value={isManual}
@@ -83,6 +83,7 @@ function TaskFormItems({ form, isManual: isManualDefault = false, isTwitter: isT
               setIsManual(event.target.checked);
               form.resetFields(["action"]);
             }}
+            className="text-sm xl:text-base"
           >
             Input manually
           </Checkbox>
@@ -97,11 +98,11 @@ function TaskFormItems({ form, isManual: isManualDefault = false, isTwitter: isT
           },
         ]}
       >
-        <Input placeholder="Where can the user perform this task?" readOnly={isTwitter && !isManual} />
+        <Input placeholder="Where can the user perform this task?" readOnly={isTwitter && !isManual} className="text-sm xl:text-base" />
       </Form.Item>
-      <h4 className="text-base text-black font-bold my-1">Description</h4>
+      <h4 className="text-sm xl:text-base text-black font-bold my-1">Description</h4>
       <Form.Item name="description">
-        <Input.TextArea placeholder="How to complete the task?" rows={10} />
+        <Input.TextArea placeholder="How to complete the task?" rows={10} className="text-sm xl:text-base" />
       </Form.Item>
     </>
   );

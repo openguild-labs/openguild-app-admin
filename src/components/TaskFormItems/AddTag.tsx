@@ -68,13 +68,19 @@ function AddTag() {
               }}
               onBlur={handleEditInputConfirm}
               onPressEnter={handleEditInputConfirm}
-              className="h-6"
+              className="h-6 text-xs xl:text-sm"
             />
           );
         }
         const isLongTag = tag.length > 20;
         const tagElem = (
-          <Tag key={tag} closable={true} style={{ userSelect: "none" }} onClose={() => handleClose(tag)}>
+          <Tag
+            key={tag}
+            closable={true}
+            className="text-xs xl:text-sm flex-center"
+            style={{ userSelect: "none" }}
+            onClose={() => handleClose(tag)}
+          >
             <span
               onDoubleClick={(e) => {
                 if (index !== 0) {
@@ -101,7 +107,7 @@ function AddTag() {
           ref={inputRef}
           type="text"
           size="small"
-          className="h-6 w-[80px]"
+          className="h-6 w-[80px] text-xs xl:text-sm"
           value={inputValue}
           onChange={(e) => {
             setInputValue(e.target.value);
@@ -111,7 +117,7 @@ function AddTag() {
         />
       ) : (
         <Tag
-          className="h-6 border border-dashed"
+          className="h-6 border border-dashed text-xs xl:text-sm flex-center"
           icon={<PlusOutlined />}
           onClick={() => {
             setInputVisible(true);

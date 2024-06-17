@@ -63,7 +63,7 @@ function MissionDuration({ startDate: start_date, endDate: end_date, missionID, 
         <div className="relative">
           <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />
           <RangePicker
-            className="w-full"
+            className="w-full text-sm xl:text-base"
             defaultValue={[dayjs(values[0], dateFormat), dayjs(values[1], dateFormat)]}
             onChange={(_, dateStrings) => {
               setValues([dateStrings[0], dateStrings[1]]);
@@ -71,7 +71,7 @@ function MissionDuration({ startDate: start_date, endDate: end_date, missionID, 
           />
         </div>
       ) : (
-        <div className="flex gap-x-3 items-center">
+        <div className="flex gap-x-3 items-center text-sm xl:text-base">
           <span>{values[0]}</span>
           <HiOutlineArrowLongRight className="text-neutral-400" />
           <span>{values[1]}</span>

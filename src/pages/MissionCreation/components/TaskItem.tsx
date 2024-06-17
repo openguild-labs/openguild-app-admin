@@ -17,7 +17,7 @@ function TaskItem({ taskName, onClick, onDelete }: ITaskItemProps) {
         onClick={onClick}
       >
         <h4
-          className="text-base text-black font-bold mb-1 text-ellipsis overflow-hidden"
+          className="text-sm xl:text-base text-black font-bold text-ellipsis overflow-hidden flex items-center"
           style={{
             width: width ? width - 20 : "auto",
           }}

@@ -100,7 +100,7 @@ function Sider() {
                       }}
                     >
                       <CollapsedWrapper collapsed={collapsed}>
-                        <span className="w-full text-sm md:text-base">{item.label}</span>
+                        <span className="w-full text-base">{item.label}</span>
                       </CollapsedWrapper>
                     </span>
                   </div>
@@ -151,7 +151,7 @@ function Sider() {
                       {item.icon}
                     </ListItemIcon>
                     <ListItemText
-                      primary={<span className="text-sm md:text-base">{item.label}</span>}
+                      primary={<span className="text-base">{item.label}</span>}
                       style={{
                         color: currentTabIndex === index ? "#fff" : "#000",
                       }}

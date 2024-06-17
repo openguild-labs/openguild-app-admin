@@ -71,7 +71,7 @@ function TaskItem({ title, description, onClickMenu }: ITaskItemProps) {
         </div>
       </AccordionSummary>
       <AccordionDetails>
-        <pre className="w-full text-base text-wrap">{description}</pre>
+        <pre className="w-full text-sm xl:text-base text-wrap">{description}</pre>
       </AccordionDetails>
     </Accordion>
   );

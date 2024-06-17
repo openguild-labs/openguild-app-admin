@@ -19,7 +19,7 @@ function PreviewImage({ previewImage, onClick, icon, label }: IPreviewImageProps
           onClick={onClick}
         >
           {icon !== undefined ? icon : <AiOutlineDelete className="text-light text-base" />}
-          <p className="m-0 text-light">{label !== undefined ? label : "delete"}</p>
+          <p className="m-0 text-light text-sm xl:text-base">{label !== undefined ? label : "delete"}</p>
         </div>
       </div>
     </div>

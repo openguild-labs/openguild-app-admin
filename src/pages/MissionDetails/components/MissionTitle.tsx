@@ -65,7 +65,7 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
                 onCancel();
               }
             }}
-            className="text-base"
+            className="text-base xl:text-lg"
           />
         </div>
       ) : (
@@ -74,7 +74,7 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
             rows: 2,
             tooltip: value,
           }}
-          className="text-2xl ant-typo-mb-0 font-bold text-primary-color"
+          className="text-xl xl:text-2xl ant-typo-mb-0 font-bold text-primary-color"
         >
           {value}
         </Typography.Paragraph>

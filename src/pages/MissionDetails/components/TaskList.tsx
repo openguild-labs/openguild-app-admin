@@ -69,7 +69,7 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
         );
       })}
       <Drawer
-        title="Task Information"
+        title={<span className="text-base xl:text-lg">Task Information</span>}
         placement="right"
         open={openDrawer}
         onClose={() => {
@@ -85,8 +85,8 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
             <TaskFormItems form={form} isTwitter={isTwitter} isManual={isManual} />
             <div className="flex justify-end gap-x-3 mt-4">
               <Popconfirm
-                title="Delete the task"
-                description="Are you sure to delete this task?"
+                title={<span className="text-xs xl:text-sm">Delete the task</span>}
+                description={<span className="text-xs xl:text-sm">Are you sure to delete this task?</span>}
                 onConfirm={() => {
                   if (editTask === undefined) {
                     return;
@@ -95,10 +95,10 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
                     onSuccess,
                   });
                 }}
-                okText="Yes"
-                cancelText="No"
+                okText={<span className="text-xs xl:text-sm">Yes</span>}
+                cancelText={<span className="text-xs xl:text-sm">No</span>}
               >
-                <Button danger htmlType="submit" className="mt-2" loading={isPendingDeleteTask}>
+                <Button danger htmlType="submit" className="mt-2 text-sm xl:text-base" loading={isPendingDeleteTask}>
                   Remove
                 </Button>
               </Popconfirm>
@@ -106,7 +106,7 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  className="mt-2"
+                  className="mt-2 text-sm xl:text-base"
                   loading={isPendingEditTask}
                   onClick={() => {
                     form.validateFields().then((values) => {

@@ -3,7 +3,7 @@ import { Skeleton } from "antd";
 function MissionDetailsSkeleton() {
   return (
     <div className="flex gap-x-6">
-      <div className="w-[40%] min-w-[400px] flex flex-col gap-y-5 p-2">
+      <div className="w-[40%] min-w-[320px] lg:min-w-[400px] flex flex-col gap-y-4 xl:gap-y-5 p-2">
         <Skeleton.Input
           active
           size="large"

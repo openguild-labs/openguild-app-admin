@@ -11,15 +11,15 @@ const formFields = ["banner", "title", "duration", "description", "tasks"];
 
 const steps = [
   {
-    title: "Mission banner",
+    title: <span className="text-sm xl:text-base">Mission banner</span>,
     getContent: (form: FormInstance) => <DragFile form={form} />,
   },
   {
-    title: "Mission information",
+    title: <span className="text-sm xl:text-base">Mission information</span>,
     getContent: () => <InputInfo />,
   },
   {
-    title: "Mission tasks",
+    title: <span className="text-sm xl:text-base">Mission tasks</span>,
     getContent: (form: FormInstance) => <CreateTask form={form} />,
   },
 ];
@@ -46,12 +46,13 @@ function MissionCreation() {
       <div>
         <Steps direction="vertical" current={current} items={steps.map((item) => ({ title: item.title }))} className="w-[280px]" />
         <div className="flex gap-x-2 mt-4">
-          <Button disabled={current === 0} onClick={() => prev()}>
+          <Button disabled={current === 0} onClick={() => prev()} className="text-sm xl:text-base">
             Back
           </Button>
           <Button
             type="primary"
             loading={isPending}
+            className="text-sm xl:text-base"
             onClick={() => {
               form
                 .validateFields()
