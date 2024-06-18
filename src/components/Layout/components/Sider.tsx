@@ -9,6 +9,7 @@ import CollapsedWrapper from "./CollapsedWrapper";
 import logo from "@/assets/images/logo.png";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { closeDrawer, layoutStore, setCollapsedSider } from "@/redux/slides/layout";
+import "./style.css";
 
 function a11yProps(index: number) {
   return {
@@ -46,11 +47,9 @@ function Sider() {
   return (
     <>
       <aside
-        className="fixed top-0 left-0 bottom-0 bg-white shadow-md transition-effect xl:block hidden z-20"
-        style={{
-          width: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,
-          minWidth: collapsed ? COLLAPSED_SIDER_WIDTH : SIDER_WIDTH,
-        }}
+        className={`fixed top-0 left-0 bottom-0 bg-white shadow-md transition-effect z-20 ${
+          collapsed ? `layout-sider-${COLLAPSED_SIDER_WIDTH}` : `layout-sider-${SIDER_WIDTH}`
+        }`}
       >
         <div
           className="flex items-center px-2"

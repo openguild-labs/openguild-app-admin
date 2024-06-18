@@ -14,6 +14,16 @@
   padding-left: 260px;
 }
 
+.layout-sider-80 {
+  width: 80px;
+  min-width: 80px;
+}
+
+.layout-sider-260 {
+  width: 260px;
+  min-width: 260px;
+}
+
 @media not all and (min-width: 1280px) {
   .layout-body-80,
   .layout-body-260 {
@@ -23,5 +33,10 @@
   .layout-header-80,
   .layout-header-260 {
     padding-left: 0;
+  }
+
+  .layout-sider-80,
+  .layout-sider-260 {
+    display: none;
   }
 }
