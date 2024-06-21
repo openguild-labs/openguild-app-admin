@@ -181,3 +181,14 @@ export const updateBanner = async ({ missionID, oldBanner, file }: TUpdateBanner
     message.error("Error updating banner");
   }
 };
+
+export const createTask = async (missionID: string, task: TTaskCreation) => {
+  const { error } = await supabase.from("task").insert({
+    ...task,
+    description: task.description !== undefined ? task.description : "",
+    mission_id: missionID,
+  });
+  if (error !== null) {
+    message.error("Error creating task");
+  }
+};
