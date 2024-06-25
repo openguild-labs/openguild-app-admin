@@ -1,4 +1,3 @@
-import EllipsisTypo from "@/components/EllipsisTypo";
 import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow } from "@mui/material";
 import { Empty } from "antd";
 import { FaCheckCircle } from "react-icons/fa";
@@ -43,7 +42,7 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
         <TableRow key={row.id}>
           <TableCell className="w-[30%]">
             <div className="max-w-[280px]">
-              <EllipsisTypo text={row.email} />
+              <span className="text-start text-ellipsis line-clamp-1">{row.email}</span>
             </div>
           </TableCell>
           <TableCell>

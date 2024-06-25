@@ -2,7 +2,6 @@ import { MISSIONS_PATH } from "@/constants/links";
 import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Empty } from "antd";
-import EllipsisTypo from "@/components/EllipsisTypo";
 
 interface ITableBodyProps {
   data: TMissionResponse[];
@@ -50,7 +49,7 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
           }}
         >
           <TableCell className="w-[40%]">
-            <EllipsisTypo text={row.title} />
+            <span className="text-start text-ellipsis line-clamp-1">{row.title}</span>
           </TableCell>
           <TableCell>
             <div className="text-sm xl:text-base">{row.status}</div>

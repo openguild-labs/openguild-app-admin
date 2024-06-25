@@ -89,7 +89,7 @@ function MissionCreation() {
           </Button>
         </div>
       </div>
-      <div className="flex-1 border-l border-neutral-300 pl-3">{steps[current].getContent(form)}</div>
+      <div className="flex-1 border-l border-neutral-300 pl-3 overflow-hidden">{steps[current].getContent(form)}</div>
     </Form>
   );
 }

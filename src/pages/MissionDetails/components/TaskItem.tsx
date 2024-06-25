@@ -6,7 +6,6 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { useState } from "react";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import colors from "@/config/colors";
-import EllipsisTypo from "@/components/EllipsisTypo";
 
 interface ITaskItemProps {
   title: string;
@@ -57,7 +56,7 @@ function TaskItem({ title, description, onClickMenu }: ITaskItemProps) {
         expandIcon={haveDescription && <MdKeyboardArrowRight className="text-base" />}
       >
         <div className="flex items-center justify-between w-full">
-          <EllipsisTypo text={title} />
+          <span className="text-start text-ellipsis line-clamp-1">{title}</span>
 
           <div
             onClick={(e) => {

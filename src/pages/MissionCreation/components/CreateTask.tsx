@@ -34,7 +34,7 @@ function CreateTask({ form }: ICreateTaskProps) {
   return (
     <div className="w-full h-full">
       <div
-        className="w-full overflow-hidden"
+        className="overflow-hidden"
         style={{
           marginBottom: tasks.length > 0 ? "1rem" : "0",
         }}
