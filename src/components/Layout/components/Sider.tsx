@@ -1,5 +1,5 @@
 import { COLLAPSED_SIDER_WIDTH, HEADER_HEIGHT, SIDER_WIDTH } from "@/constants/dimensions";
-import { HOME_PATH, MISSIONS_PATH, USERS_PATH } from "@/constants/links";
+import { HOME_PATH, MISSIONS_CATEGORIES_PATH, MISSIONS_PATH, USERS_PATH } from "@/constants/links";
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -9,6 +9,7 @@ import CollapsedWrapper from "./CollapsedWrapper";
 import logo from "@/assets/images/logo.png";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { closeDrawer, layoutStore, setCollapsedSider } from "@/redux/slides/layout";
+import { TbCategoryPlus } from "react-icons/tb";
 import "./style.css";
 
 function a11yProps(index: number) {
@@ -23,6 +24,11 @@ const linkItems = [
     label: "User",
     icon: <FaRegUser size={18} />,
     to: USERS_PATH,
+  },
+  {
+    label: "Mission Category",
+    icon: <TbCategoryPlus size={18} />,
+    to: MISSIONS_CATEGORIES_PATH,
   },
   {
     label: "Mission",
@@ -99,7 +105,7 @@ function Sider() {
                       }}
                     >
                       <CollapsedWrapper collapsed={collapsed}>
-                        <span className="w-full text-base">{item.label}</span>
+                        <span className="w-full text-base capitalize">{item.label}</span>
                       </CollapsedWrapper>
                     </span>
                   </div>

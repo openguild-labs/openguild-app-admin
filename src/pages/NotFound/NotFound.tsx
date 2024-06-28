@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
@@ -10,7 +10,7 @@ const NotFound = () => {
       <h1 className="text-lg xl:text-xl font-bold text-center mt-5">It looks like you’re lost</h1>
 
       <div className="flex justify-center mt-8">
-        <Button variant="outlined" onClick={() => navigate(-1)}>
+        <Button type="primary" onClick={() => navigate(-1)}>
           Go Back
         </Button>
       </div>

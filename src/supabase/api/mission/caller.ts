@@ -51,24 +51,36 @@ export const createMission = async (missionCreation: TMissionCreation<UploadFile
   return mission;
 };
 
-export const listMissions = async ({ pagination }: TMissionQuery) => {
+export const listMissions = async ({ pagination, searchingTitle }: TMissionQuery) => {
   const start = pagination.page * pagination.limit;
   const result: TMissionListResponse = {
     list: [],
     total: 0,
   };
 
-  const getListPromise = supabase
+  let getListPromise = supabase
     .from("mission")
     .select<string, TMissionModel>()
     .is("deleted_at", null)
     .range(start, start + pagination.limit - 1)
     .order("id", { ascending: true });
+  if (searchingTitle !== "") {
+    getListPromise = getListPromise.like("title", `%${searchingTitle}%`);
+  }
 
-  const getTotalPromise = supabase.from("mission").select("id", { count: "exact" }).is("deleted_at", null).order("id", { ascending: true });
+  let getTotalPromise = supabase.from("mission").select("id", { count: "exact" }).is("deleted_at", null).order("id", { ascending: true });
+  if (searchingTitle !== "") {
+    getTotalPromise = getTotalPromise.like("title", `%${searchingTitle}%`);
+  }
 
-  const [{ data, error }, { data: totalData, error: totalError }] = await Promise.all([getListPromise, getTotalPromise]);
-  if (error !== null || totalError !== null) {
+  const getParticipantQuantityPromise = supabase.from("participant_quantity").select<string, TParticipantQuantityResponse>();
+
+  const [{ data, error }, { data: totalData, error: totalError }, { data: participantQuantityData, error: participantQuantityError }] =
+    await Promise.all([getListPromise, getTotalPromise, getParticipantQuantityPromise]);
+
+  const isNotNullError = error !== null || totalError !== null || participantQuantityError !== null;
+  const isNullData = data === null || totalData === null || participantQuantityData === null;
+  if (isNotNullError || isNullData) {
     message.error("Error fetching missions");
     return result;
   }
@@ -78,7 +90,7 @@ export const listMissions = async ({ pagination }: TMissionQuery) => {
       id: mission.id,
       title: mission.title,
       status: getStatusMission(mission.start_date, mission.end_date),
-      participants: 0,
+      participants: participantQuantityData.find((p) => p.mission_id === mission.id)?.quantity || 0,
       created_at: new Date(mission.created_at).toISOString().split("T")[0],
     };
   });

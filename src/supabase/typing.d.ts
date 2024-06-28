@@ -19,3 +19,9 @@ type TTaskModel = {
   description: string;
   action: string;
 };
+
+type TMissionCategoryModel = {
+  id: number;
+  name: string;
+  description: string;
+};

@@ -2,17 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TRootState } from "..";
 import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/constants/pagination";
 
-const initialState: TMissionQuery = {
-  searchingTitle: "",
-  status: "",
+const initialState: TMissionCategoryQuery = {
   pagination: {
     limit: LIMIT_DEFAULT,
     page: PAGE_DEFAULT,
   },
 };
 
-const missionQuery = createSlice({
-  name: "missionQuery",
+const missionCategoryQuery = createSlice({
+  name: "missionCategoryQuery",
   initialState,
   reducers: {
     setPagination(state, action: PayloadAction<Partial<TPagination>>) {
@@ -26,12 +24,9 @@ const missionQuery = createSlice({
       state.pagination.limit = initialState.pagination.limit;
       state.pagination.page = initialState.pagination.page;
     },
-    setSearchingTitle(state, action: PayloadAction<string>) {
-      state.searchingTitle = action.payload;
-    },
   },
 });
 
-export const missionQueryStore = (state: TRootState) => state.missionQuery;
-export const { setPagination, resetPagination, setSearchingTitle } = missionQuery.actions;
-export default missionQuery.reducer;
+export const missionCategoryQueryStore = (state: TRootState) => state.missionCategoryQuery;
+export const { setPagination, resetPagination } = missionCategoryQuery.actions;
+export default missionCategoryQuery.reducer;

@@ -1,4 +1,4 @@
-import { DatePicker, Form, Input } from "antd";
+import { DatePicker, Form, Input, Select } from "antd";
 
 const { RangePicker } = DatePicker;
 
@@ -18,6 +18,21 @@ function InputInfo() {
           className="w-3/4"
         >
           <Input placeholder="Input mission title" className="text-sm xl:text-base" />
+        </Form.Item>
+      </div>
+      <div className="flex items-start mt-4">
+        <h3 className="text-base xl:text-lg font-bold my-1 w-1/4">Category</h3>
+        <Form.Item
+          name="category"
+          rules={[
+            {
+              required: true,
+              message: "Mission category is required",
+            },
+          ]}
+          className="w-3/4"
+        >
+          <Select className="w-full text-sm xl:text-base" placeholder="Select mission category" />
         </Form.Item>
       </div>
       <div className="flex mt-4 items-start">

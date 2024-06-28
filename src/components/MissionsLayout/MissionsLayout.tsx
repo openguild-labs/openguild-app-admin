@@ -1,9 +1,10 @@
 import { ADD_MISSION_PATH, MISSIONS_PATH } from "@/constants/links";
-import { Breadcrumbs, Button, Link, Typography } from "@mui/material";
+import { Breadcrumbs, Link, Typography } from "@mui/material";
 import { GrFormAdd } from "react-icons/gr";
 import { Outlet, useLocation } from "react-router-dom";
 import { GoChevronRight } from "react-icons/go";
 import { missionDetailsPathRegex } from "@/constants/regex";
+import { Button } from "antd";
 
 const getLastBreadcrumbLabel = (pathname: string) => {
   switch (true) {
@@ -37,16 +38,7 @@ function MissionsLayout() {
           </Breadcrumbs>
         </div>
         {pathname === MISSIONS_PATH && (
-          <Button
-            variant="contained"
-            href={ADD_MISSION_PATH}
-            sx={{
-              borderRadius: "0.5rem",
-              padding: "0.5rem 1.25rem",
-              cursor: "pointer",
-            }}
-            startIcon={<GrFormAdd />}
-          >
+          <Button href={ADD_MISSION_PATH} type="primary" icon={<GrFormAdd />} className="h-9 rounded-lg">
             <span className="lowercase text-sm xl:text-base font-normal">Add mission</span>
           </Button>
         )}

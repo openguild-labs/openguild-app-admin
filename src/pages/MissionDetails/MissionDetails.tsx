@@ -26,7 +26,7 @@ function MissionDetails() {
 
   return (
     <div className="flex gap-x-6">
-      <div className="w-[40%] min-w-[320px] lg:min-w-[400px] flex flex-col xl:gap-y-1">
+      <div className="w-[40%] min-w-[320px] xl:min-w-[400px] flex flex-col xl:gap-y-1">
         <MissionTitle
           title={data.title}
           missionID={id as string}

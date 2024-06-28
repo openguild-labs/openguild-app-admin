@@ -43,7 +43,7 @@ function MissionCreation() {
 
   return (
     <Form form={form} name="mission_creation" className="h-full flex">
-      <div>
+      <div className="pl-1 pt-1">
         <Steps direction="vertical" current={current} items={steps.map((item) => ({ title: item.title }))} className="w-[280px]" />
         <div className="flex gap-x-2 mt-4">
           <Button disabled={current === 0} onClick={() => prev()} className="text-sm xl:text-base">
@@ -89,7 +89,7 @@ function MissionCreation() {
           </Button>
         </div>
       </div>
-      <div className="flex-1 border-l border-neutral-300 pl-3 overflow-hidden">{steps[current].getContent(form)}</div>
+      <div className="flex-1 border-l border-neutral-300 pl-3 pr-1 pt-1 overflow-hidden">{steps[current].getContent(form)}</div>
     </Form>
   );
 }

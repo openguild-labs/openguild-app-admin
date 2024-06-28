@@ -14,7 +14,7 @@ export const useCreateMission = () => {
       if (resp === undefined) {
         return;
       }
-      message.success("Mission created");
+      message.success("Mission is created");
     },
   });
 };

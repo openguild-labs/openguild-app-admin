@@ -5,8 +5,9 @@ import Users from "./pages/Users";
 import Missions from "./pages/Missions";
 import MissionsLayout from "./components/MissionsLayout";
 import MissionCreation from "./pages/MissionCreation";
-import { ADD_MISSION_PATH, HOME_PATH, MISSION_DETAILS_PATH, MISSIONS_PATH, USERS_PATH } from "./constants/links";
+import { ADD_MISSION_PATH, HOME_PATH, MISSION_DETAILS_PATH, MISSIONS_CATEGORIES_PATH, MISSIONS_PATH, USERS_PATH } from "./constants/links";
 import MissionDetails from "./pages/MissionDetails";
+import MissionCategories from "./pages/MissionCategories";
 
 function App() {
   const routes: RouteObject[] = [
@@ -24,6 +25,7 @@ function App() {
             { path: MISSION_DETAILS_PATH, element: <MissionDetails /> },
           ],
         },
+        { path: MISSIONS_CATEGORIES_PATH, element: <MissionCategories /> },
         { path: "/", element: <Navigate to={USERS_PATH} replace /> },
       ],
     },

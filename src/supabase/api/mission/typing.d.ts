@@ -47,3 +47,8 @@ type TUpdateBanner = {
   oldBanner: string;
   file: UploadFile;
 };
+
+type TParticipantQuantityResponse = {
+  mission_id: number;
+  quantity: number;
+};

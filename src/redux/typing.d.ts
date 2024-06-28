@@ -14,3 +14,7 @@ type TPagination = {
   limit: number;
   page: number;
 };
+
+type TMissionCategoryQuery = {
+  pagination: TPagination;
+};

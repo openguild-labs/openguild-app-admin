@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { TiArrowSortedDown } from "react-icons/ti";
-import StyledMenu from "./StyledMenu";
 import { MenuItem } from "@mui/material";
-// import { IoSearchOutline } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
 import { FaSortAlphaDown, FaSortAlphaDownAlt } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { resetField, setField, userQueryStore } from "@/redux/slides/userQuery";
+import StyledMenu from "@/components/StyledMenu";
 
 const DEFAULT = "default";
 const ASC = "asc";
@@ -25,7 +25,7 @@ interface IOptionsProps {
   keyOption: keyof TUserModel;
 }
 
-function Options({ keyOption: key }: IOptionsProps): JSX.Element {
+function Options({ keyOption }: IOptionsProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [icon, setIcon] = useState<TIconOption>(defaultIcon);
   const open = Boolean(anchorEl);
@@ -36,14 +36,26 @@ function Options({ keyOption: key }: IOptionsProps): JSX.Element {
     event.stopPropagation();
     setAnchorEl(null);
   };
-  const { field } = useAppSelector(userQueryStore);
+  const { field, isAsc } = useAppSelector(userQueryStore);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (key !== field) {
+    if (keyOption !== field) {
       setIcon(defaultIcon);
+    } else {
+      if (isAsc) {
+        setIcon({
+          type: ASC,
+          node: <FaSortAlphaDown />,
+        });
+      } else {
+        setIcon({
+          type: DESC,
+          node: <FaSortAlphaDownAlt />,
+        });
+      }
     }
-  }, [key, field]);
+  }, [keyOption, field, isAsc]);
 
   return (
     <>
@@ -69,38 +81,36 @@ function Options({ keyOption: key }: IOptionsProps): JSX.Element {
         className="w-[200px]"
       >
         <MenuItem
+          sx={{
+            backgroundColor: field === keyOption && isAsc ? "rgba(40, 18, 62, .15) !important" : undefined,
+          }}
           onClick={(event) => {
             if (icon.type === ASC) {
               setIcon(defaultIcon);
               dispatch(resetField());
             } else {
-              setIcon({
-                type: ASC,
-                node: <FaSortAlphaDown />,
-              });
-              dispatch(setField({ field: key, isAsc: true }));
+              dispatch(setField({ field: keyOption, isAsc: true }));
             }
             handleClose(event);
           }}
         >
-          Sort from A to Z <FaSortAlphaDown />
+          Sort from A to Z {field === keyOption && isAsc ? <RxCross2 /> : <FaSortAlphaDown />}
         </MenuItem>
         <MenuItem
+          sx={{
+            backgroundColor: field === keyOption && !isAsc ? "rgba(40, 18, 62, .15) !important" : undefined,
+          }}
           onClick={(event) => {
             if (icon.type === DESC) {
               setIcon(defaultIcon);
               dispatch(resetField());
             } else {
-              setIcon({
-                type: DESC,
-                node: <FaSortAlphaDownAlt />,
-              });
-              dispatch(setField({ field: key, isAsc: false }));
+              dispatch(setField({ field: keyOption, isAsc: false }));
             }
             handleClose(event);
           }}
         >
-          Sort from Z to A <FaSortAlphaDownAlt />
+          Sort from Z to A {field === keyOption && !isAsc ? <RxCross2 /> : <FaSortAlphaDownAlt />}
         </MenuItem>
       </StyledMenu>
     </>
