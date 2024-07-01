@@ -11,7 +11,7 @@ function Header() {
 
   return (
     <header
-      className={`transition-effect fixed top-0 right-0 left-0 z-10 ${
+      className={`transition-effect fixed top-0 right-0 left-0 z-20 ${
         collapsed ? `layout-header-${COLLAPSED_SIDER_WIDTH}` : `layout-header-${SIDER_WIDTH}`
       }`}
       style={{

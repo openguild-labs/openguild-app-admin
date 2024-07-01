@@ -7,7 +7,7 @@ import { useCreateMission } from "@/supabase/api/mission/services";
 import { useNavigate } from "react-router-dom";
 import { MISSIONS_PATH } from "@/constants/links";
 
-const formFields = ["banner", "title", "duration", "description", "tasks"];
+const formFields = ["banner", "title", "duration", "description", "tasks", "mission_category_id"];
 
 const steps = [
   {
@@ -69,6 +69,7 @@ function MissionCreation() {
                         start_date: getDateString(startDate),
                         end_date: getDateString(endDate),
                         tasks: values.tasks,
+                        mission_category_id: values.mission_category_id,
                       },
                       {
                         onSuccess: (resp) => {

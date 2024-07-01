@@ -10,6 +10,7 @@ type TMissionModel = {
   end_date: string;
   created_at: string;
   banner: string;
+  mission_category_id: string;
 };
 
 type TTaskModel = {

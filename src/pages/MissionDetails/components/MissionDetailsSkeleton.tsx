@@ -1,4 +1,4 @@
-import { Skeleton } from "antd";
+import { Divider, Skeleton } from "antd";
 
 function MissionDetailsSkeleton() {
   return (
@@ -28,39 +28,55 @@ function MissionDetailsSkeleton() {
         />
         <Skeleton paragraph={{ rows: 2 }} />
       </div>
-      <div className="flex-1 flex flex-col gap-y-4 p-2">
+      <div className="flex-1 flex flex-col">
+        <Divider orientation="left">
+          <span className="text-lg xl:text-xl">Category</span>
+        </Divider>
         <Skeleton.Input
           active
           size="large"
           style={{
             width: "100%",
-            height: "60px",
+            height: "40px",
           }}
         />
-        <Skeleton.Input
-          active
-          size="large"
-          style={{
-            width: "100%",
-            height: "60px",
-          }}
-        />
-        <Skeleton.Input
-          active
-          size="large"
-          style={{
-            width: "100%",
-            height: "60px",
-          }}
-        />
-        <Skeleton.Input
-          active
-          size="large"
-          style={{
-            width: "100%",
-            height: "60px",
-          }}
-        />
+        <Divider orientation="left">
+          <span className="text-lg xl:text-xl">Task list</span>
+        </Divider>
+        <div className="flex flex-col gap-y-4">
+          <Skeleton.Input
+            active
+            size="large"
+            style={{
+              width: "100%",
+              height: "60px",
+            }}
+          />
+          <Skeleton.Input
+            active
+            size="large"
+            style={{
+              width: "100%",
+              height: "60px",
+            }}
+          />
+          <Skeleton.Input
+            active
+            size="large"
+            style={{
+              width: "100%",
+              height: "60px",
+            }}
+          />
+          <Skeleton.Input
+            active
+            size="large"
+            style={{
+              width: "100%",
+              height: "60px",
+            }}
+          />
+        </div>
       </div>
     </div>
   );

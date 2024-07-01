@@ -12,6 +12,7 @@ export const createMission = async (missionCreation: TMissionCreation<UploadFile
       description: missionCreation.description,
       start_date: missionCreation.start_date,
       end_date: missionCreation.end_date,
+      mission_category_id: missionCreation.mission_category_id,
     })
     .select<string, TMissionModel>();
   if (missionCreationError !== null) {
@@ -125,19 +126,27 @@ export const getMission = async (id: string) => {
     .eq("mission_id", id)
     .is("deleted_at", null)
     .order("id", { ascending: true });
+  const getMissionCategoryPromise = supabase
+    .from("mission_category")
+    .select<string, TMissionCategoryModel>()
+    .eq("id", mission.mission_category_id)
+    .is("deleted_at", null);
 
-  const [{ data: bannerData, error: fetchBannerError }, { data: tasksData, error: fetchTasksError }] = await Promise.all([
-    getBannerPromise,
-    getTasksPromise,
-  ]);
+  const [
+    { data: bannerData, error: fetchBannerError },
+    { data: tasksData, error: fetchTasksError },
+    { data: missionCategoryData, error: fetchMissionCategoryError },
+  ] = await Promise.all([getBannerPromise, getTasksPromise, getMissionCategoryPromise]);
 
-  if (fetchBannerError !== null || fetchTasksError !== null) {
+  const errorIsNotNull = fetchBannerError !== null || fetchTasksError !== null || fetchMissionCategoryError !== null;
+  const dataIsNull = bannerData === null || tasksData === null || missionCategoryData === null;
+  if (errorIsNotNull || dataIsNull) {
     message.error("Error fetching data");
     return undefined;
   }
 
   const banner_url = bannerData.signedUrl;
-  return { ...mission, banner_url, tasks: tasksData } as TMissionDetailResponse;
+  return { ...mission, banner_url, tasks: tasksData, mission_category: missionCategoryData[0] } as TMissionDetailResponse;
 };
 
 export const updateTask = async (task: TTaskModel) => {
@@ -170,7 +179,7 @@ export const updateMission = async (update: TMissionUpdate) => {
       update.updates.reduce((acc, current) => {
         acc[current.key] = current.value;
         return acc;
-      }, {} as Record<string, string>)
+      }, {} as Record<string, string | number>)
     )
     .eq("id", update.missionID);
   if (error !== null) {

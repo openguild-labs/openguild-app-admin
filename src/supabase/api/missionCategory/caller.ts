@@ -28,6 +28,21 @@ export const listMissionsCategories = async ({ pagination }: TMissionCategoryQue
   return data;
 };
 
+export const listAllMissionsCategories = async () => {
+  const { data, error } = await supabase
+    .from("mission_category")
+    .select<string, TMissionCategoryModel>()
+    .is("deleted_at", null)
+    .order("id", { ascending: true });
+
+  if (error !== null || data === null) {
+    message.error("Error fetching mission categories");
+    return [] as TMissionCategoryModel[];
+  }
+
+  return data;
+};
+
 export const countTotalMissionsCategories = async () => {
   const { data, error } = await supabase.from("mission_category").select("id", { count: "exact" }).is("deleted_at", null);
 

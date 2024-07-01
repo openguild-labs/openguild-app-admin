@@ -1,17 +1,17 @@
 import { useGetMission } from "@/supabase/api/mission/services";
 import { useParams } from "react-router-dom";
-import { Empty } from "antd";
+import { Divider, Empty } from "antd";
 import MissionDetailsSkeleton from "./components/MissionDetailsSkeleton";
 import TaskList from "./components/TaskList";
 import MissionTitle from "./components/MissionTitle";
 import MissionDuration from "./components/MissionDuration";
 import MissionBanner from "./components/MissionBanner";
 import MissionDescription from "./components/MissionDescription";
+import MissionCategory from "./components/MissionCategory";
 
 function MissionDetails() {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, refetch } = useGetMission(id as string);
-
   if (isLoading) {
     return <MissionDetailsSkeleton />;
   }
@@ -60,6 +60,13 @@ function MissionDetails() {
       </div>
 
       <div className="flex-1">
+        <Divider orientation="left">
+          <span className="text-lg xl:text-xl">Category</span>
+        </Divider>
+        <MissionCategory missionID={id as string} category={data.mission_category} refetch={() => refetch()} />
+        <Divider orientation="left">
+          <span className="text-lg xl:text-xl">Task list</span>
+        </Divider>
         <TaskList
           tasks={data.tasks}
           refetch={() => {

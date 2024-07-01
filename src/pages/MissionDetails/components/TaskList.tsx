@@ -60,7 +60,7 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
   };
 
   return (
-    <div className="flex flex-col gap-y-4 p-2">
+    <div className="flex flex-col gap-y-4">
       {tasks.map((task) => {
         return (
           <TaskItem

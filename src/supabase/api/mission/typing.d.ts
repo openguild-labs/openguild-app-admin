@@ -11,6 +11,7 @@ type TMissionCreation<TBanner> = {
   description: string;
   start_date: string;
   end_date: string;
+  mission_category_id: string;
   tasks: TTaskCreation[];
 };
 
@@ -29,12 +30,13 @@ type TMissionListResponse = {
 
 type TMissionDetailResponse = TMissionModel & {
   banner_url: string;
+  mission_category: TMissionCategoryModel;
   tasks: TTaskModel[];
 };
 
 type TMissionUpdateMap = {
   key: keyof TMissionModel;
-  value: string;
+  value: string | number;
 };
 
 type TMissionUpdate = {
