@@ -18,6 +18,11 @@ type TUserModel = {
   first_name: string;
   last_name: string;
   is_student: boolean;
+  username: string;
+  telegram: string;
+  facebook: string;
+  twitter: string;
+  discord: string;
 };
 
 type TUserListResponse = {

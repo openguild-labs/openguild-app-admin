@@ -1,6 +1,6 @@
-import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow } from "@mui/material";
+import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow as TableRowMUI } from "@mui/material";
 import { Empty } from "antd";
-import { FaCheckCircle } from "react-icons/fa";
+import TableRow from "./TableRow";
 
 interface ITableBodyProps {
   data: TUserModel[];
@@ -11,13 +11,13 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
   if (isLoading) {
     return (
       <TableBodyMUI>
-        <TableRow>
+        <TableRowMUI>
           <TableCell colSpan={5} style={{ borderBottom: "none" }}>
             <div className="flex justify-center">
               <CircularProgress />
             </div>
           </TableCell>
-        </TableRow>
+        </TableRowMUI>
       </TableBodyMUI>
     );
   }
@@ -25,13 +25,13 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
   if (data.length === 0) {
     return (
       <TableBodyMUI>
-        <TableRow>
+        <TableRowMUI>
           <TableCell colSpan={5} style={{ borderBottom: "none" }}>
             <div className="flex justify-center">
               <Empty description="Have no user" />
             </div>
           </TableCell>
-        </TableRow>
+        </TableRowMUI>
       </TableBodyMUI>
     );
   }
@@ -39,25 +39,7 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
   return (
     <TableBodyMUI>
       {data.map((row) => (
-        <TableRow key={row.id}>
-          <TableCell className="w-[30%]">
-            <div className="max-w-[280px]">
-              <span className="text-start text-ellipsis line-clamp-1">{row.email}</span>
-            </div>
-          </TableCell>
-          <TableCell>
-            <div className="text-sm xl:text-base">{row.wallet_address.substring(0, 5) + "..." + row.wallet_address.slice(-5)}</div>
-          </TableCell>
-          <TableCell>
-            <div className="max-w-[140px] text-sm xl:text-base text-ellipsis overflow-hidden">{row.first_name || "--"}</div>
-          </TableCell>
-          <TableCell>
-            <div className="max-w-[140px] text-sm xl:text-base text-ellipsis overflow-hidden">{row.last_name || "--"}</div>
-          </TableCell>
-          <TableCell align="center">
-            <div className="flex justify-center">{row.is_student && <FaCheckCircle className="text-green-500 text-base xl:text-lg" />}</div>
-          </TableCell>
-        </TableRow>
+        <TableRow key={row.id} data={row} />
       ))}
     </TableBodyMUI>
   );
