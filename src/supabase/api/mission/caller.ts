@@ -33,6 +33,7 @@ export const createMission = async (missionCreation: TMissionCreation<UploadFile
     missionCreation.tasks.map((task) => ({
       ...task,
       description: task.description !== undefined ? task.description : "",
+      button_placeholder: task.button_placeholder !== undefined ? task.button_placeholder : "",
       mission_id: missionID,
     }))
   );
@@ -157,6 +158,8 @@ export const updateTask = async (task: TTaskModel) => {
       type: task.type,
       action: task.action,
       description: task.description !== undefined ? task.description : "",
+      button_placeholder: task.button_placeholder !== undefined ? task.button_placeholder : "",
+      xp: task.xp,
     })
     .eq("id", task.id)
     .is("deleted_at", null);

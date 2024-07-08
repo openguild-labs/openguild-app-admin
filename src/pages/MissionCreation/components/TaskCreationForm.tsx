@@ -7,8 +7,8 @@ import { Button, Form } from "antd";
 import { useEffect } from "react";
 
 interface ITaskCreationFormProps {
-  onFinish: (values: TTask) => void;
-  editTask?: TTask;
+  onFinish: (values: TTaskCreation) => void;
+  editTask?: TTaskCreation;
 }
 
 function TaskCreationForm({ onFinish, editTask }: ITaskCreationFormProps) {
@@ -35,6 +35,8 @@ function TaskCreationForm({ onFinish, editTask }: ITaskCreationFormProps) {
         },
         action: editTask.action,
         description: editTask.description,
+        xp: editTask.xp,
+        button_placeholder: editTask.button_placeholder,
       });
     } else {
       form.resetFields();
@@ -54,7 +56,7 @@ function TaskCreationForm({ onFinish, editTask }: ITaskCreationFormProps) {
         dispatch(resetIntentLinkState());
       }}
     >
-      <TaskFormItems form={form} isTwitter={isTwitter} isManual={isManual} />
+      <TaskFormItems form={form} taskType={editTask?.type} isManual={isManual} />
       <div className="flex justify-end mt-4">
         <Form.Item>
           <Button type="primary" htmlType="submit" className="mt-2 text-sm xl:text-base">

@@ -2,6 +2,7 @@ import { useUpdateMission } from "@/supabase/api/mission/services";
 import { Input } from "antd";
 import { useState } from "react";
 import FloatButtons from "./FloatButtons";
+import Markdown from "@/components/Markdown";
 
 interface IMissionDescriptionProps {
   description: string;
@@ -50,7 +51,7 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
         setEditMode(true);
       }}
     >
-      <p className="text-base xl:text-lg font-bold text-primary-color">Description</p>
+      <p className="text-base xl:text-lg font-bold text-primary-color my-2">Description</p>
       {editMode ? (
         <div className="relative">
           <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />
@@ -71,7 +72,7 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
           />
         </div>
       ) : (
-        <pre className="w-full text-wrap text-sm xl:text-base">{description}</pre>
+        <Markdown className="w-full bg-transparent border-t border-neutral-400 pt-2">{description}</Markdown>
       )}
     </div>
   );

@@ -14,17 +14,17 @@ interface ICreateTaskProps {
 function CreateTask({ form }: ICreateTaskProps) {
   const dispatch = useAppDispatch();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [tasks, setTasks] = useState<TTask[]>([]);
-  const [editTask, setEditTask] = useState<{ index: number; task: TTask | undefined }>({ index: -1, task: undefined });
+  const [tasks, setTasks] = useState<TTaskCreation[]>([]);
+  const [editTask, setEditTask] = useState<{ index: number; task: TTaskCreation | undefined }>({ index: -1, task: undefined });
 
   useEffect(() => {
-    const formTasks = form.getFieldValue("tasks") as TTask[] | undefined;
+    const formTasks = form.getFieldValue("tasks") as TTaskCreation[] | undefined;
     if (formTasks !== undefined && formTasks.length > 0) {
       setTasks(formTasks);
     }
   }, [form]);
 
-  const updateTasks = (newTasks: TTask[]) => {
+  const updateTasks = (newTasks: TTaskCreation[]) => {
     setTasks(newTasks);
     form.setFieldsValue({
       tasks: newTasks,

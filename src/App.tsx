@@ -8,6 +8,7 @@ import MissionCreation from "./pages/MissionCreation";
 import { ADD_MISSION_PATH, HOME_PATH, MISSION_DETAILS_PATH, MISSIONS_CATEGORIES_PATH, MISSIONS_PATH, USERS_PATH } from "./constants/links";
 import MissionDetails from "./pages/MissionDetails";
 import MissionCategories from "./pages/MissionCategories";
+import "./markdown-light.css";
 
 function App() {
   const routes: RouteObject[] = [

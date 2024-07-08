@@ -47,6 +47,8 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
         },
         action: editTask.action,
         description: editTask.description,
+        xp: editTask.xp,
+        button_placeholder: editTask.button_placeholder,
       });
     }
   }, [form, editTask, isManual, dispatch]);
@@ -70,6 +72,7 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
             onClickMenu={() => {
               setEditTask(task);
               setOpenDrawer(true);
+              setAddNewTask(false);
             }}
           />
         );
@@ -101,7 +104,7 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
       >
         {openDrawer && (
           <Form form={form} name="mission_editing">
-            <TaskFormItems form={form} isTwitter={isTwitter} isManual={isManual} />
+            <TaskFormItems form={form} taskType={editTask?.type} isManual={isManual} />
             <div className="flex justify-end gap-x-3 mt-4">
               {!addNewTask && (
                 <Popconfirm

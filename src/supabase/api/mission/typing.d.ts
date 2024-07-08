@@ -2,7 +2,9 @@ type TTaskCreation = {
   name: string;
   type: string;
   action: string;
-  description: string;
+  xp: number;
+  button_placeholder?: string;
+  description?: string;
 };
 
 type TMissionCreation<TBanner> = {

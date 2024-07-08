@@ -6,6 +6,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { useState } from "react";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import colors from "@/config/colors";
+import Markdown from "@/components/Markdown";
 
 interface ITaskItemProps {
   title: string;
@@ -70,7 +71,7 @@ function TaskItem({ title, description, onClickMenu }: ITaskItemProps) {
         </div>
       </AccordionSummary>
       <AccordionDetails>
-        <pre className="w-full text-sm xl:text-base text-wrap">{description}</pre>
+        <Markdown className="w-full">{description}</Markdown>
       </AccordionDetails>
     </Accordion>
   );
