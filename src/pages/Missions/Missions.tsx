@@ -10,7 +10,6 @@ import Pagination from "./components/Pagination";
 function Missions() {
   const missionQuery = useAppSelector(missionQueryStore);
   const { data, isLoading } = useListMissions(missionQuery);
-
   return (
     <div className="flex-1 flex flex-col">
       <TableContainer component={TableWrapper}>

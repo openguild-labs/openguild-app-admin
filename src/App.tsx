@@ -9,6 +9,7 @@ import { ADD_MISSION_PATH, HOME_PATH, MISSION_DETAILS_PATH, MISSIONS_CATEGORIES_
 import MissionDetails from "./pages/MissionDetails";
 import MissionCategories from "./pages/MissionCategories";
 import "./markdown-light.css";
+import "./tiptap.css";
 
 function App() {
   const routes: RouteObject[] = [

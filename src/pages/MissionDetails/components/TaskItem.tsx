@@ -6,7 +6,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { useState } from "react";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import colors from "@/config/colors";
-import Markdown from "@/components/Markdown";
+import TiptapRender from "@/components/TiptapRender";
 
 interface ITaskItemProps {
   title: string;
@@ -42,6 +42,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 function TaskItem({ title, description, onClickMenu }: ITaskItemProps) {
   const [expanded, setExpanded] = useState(false);
   const haveDescription = description !== "";
+
   return (
     <Accordion
       expanded={expanded}
@@ -71,7 +72,7 @@ function TaskItem({ title, description, onClickMenu }: ITaskItemProps) {
         </div>
       </AccordionSummary>
       <AccordionDetails>
-        <Markdown className="w-full">{description}</Markdown>
+        <TiptapRender content={description} />
       </AccordionDetails>
     </Accordion>
   );

@@ -7,6 +7,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --black: ;
 }
 
 body {
@@ -157,4 +158,8 @@ body {
 
 .form-item-hidden .ant-form-item-control-input {
   display: none;
+}
+
+.ck-powered-by {
+  display: none !important;
 }

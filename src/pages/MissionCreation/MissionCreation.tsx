@@ -16,7 +16,7 @@ const steps = [
   },
   {
     title: <span className="text-sm xl:text-base">Mission information</span>,
-    getContent: () => <InputInfo />,
+    getContent: (form: FormInstance) => <InputInfo form={form} />,
   },
   {
     title: <span className="text-sm xl:text-base">Mission tasks</span>,

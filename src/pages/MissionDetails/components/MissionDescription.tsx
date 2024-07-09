@@ -1,8 +1,7 @@
 import { useUpdateMission } from "@/supabase/api/mission/services";
-import { Input } from "antd";
 import { useState } from "react";
 import FloatButtons from "./FloatButtons";
-import Markdown from "@/components/Markdown";
+import TipTap from "@/components/TipTap";
 
 interface IMissionDescriptionProps {
   description: string;
@@ -41,39 +40,28 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
   };
 
   return (
-    <div
-      className="p-2 rounded-md transition-effect w-full hover:bg-primary-color/5 hover:shadow-md hover:cursor-pointer"
-      style={{
-        backgroundColor: editMode ? "transparent" : "",
-        boxShadow: editMode ? "none" : "",
-      }}
-      onClick={() => {
-        setEditMode(true);
-      }}
-    >
-      <p className="text-base xl:text-lg font-bold text-primary-color my-2">Description</p>
-      {editMode ? (
-        <div className="relative">
-          <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />
-          <Input.TextArea
-            rows={10}
-            value={value}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                onSave();
-              } else if (e.key === "Escape") {
-                onCancel();
-              }
-            }}
-            className="text-sm xl:text-base"
-          />
-        </div>
-      ) : (
-        <Markdown className="w-full bg-transparent border-t border-neutral-400 pt-2">{description}</Markdown>
-      )}
+    <div className="p-2">
+      <p
+        className="text-base xl:text-lg font-bold text-primary-color my-2 pb-1 border-b border-neutral-400"
+        style={{
+          borderColor: !editMode ? "#a3a3a3" : "transparent",
+        }}
+      >
+        Description
+      </p>
+      <div
+        className="relative rounded-md transition-effect w-full hover:bg-primary-color/5 hover:shadow-md hover:cursor-pointer"
+        style={{
+          backgroundColor: editMode ? "transparent" : "",
+          boxShadow: editMode ? "none" : "",
+        }}
+        onClick={() => {
+          setEditMode(true);
+        }}
+      >
+        {editMode && <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />}
+        <TipTap content={description} setContent={setValue} editable={editMode} className="max-h-[288px] overflow-y-scroll" />
+      </div>
     </div>
   );
 }

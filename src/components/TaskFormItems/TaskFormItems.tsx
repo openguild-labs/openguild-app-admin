@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/reduxHooks";
 import { getIntentLink } from "@/utils/common";
 import { socialMedia } from "@/constants/socialMedia";
-import Markdown from "../Markdown";
+import TipTap from "../TipTap";
 
 interface TTaskFormItemsProps {
   form: FormInstance;
@@ -137,16 +137,19 @@ function TaskFormItems({ form, isManual: isManualDefault = false, taskType: task
       </Form.Item>
       <h4 className="text-sm xl:text-base text-black font-bold my-1">Description</h4>
       <Form.Item name="description">
-        <Input.TextArea
-          placeholder="How to complete the task?"
-          rows={10}
-          className="text-sm xl:text-base"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-        />
+        {description !== "" && (
+          <TipTap
+            placeholder="How to complete the task?"
+            content={description}
+            setContent={(value) => {
+              setDescription(value);
+              form.setFieldValue("description", value);
+            }}
+            editable={true}
+            className="h-[288px] overflow-y-scroll"
+          />
+        )}
       </Form.Item>
-      <h4 className="text-sm xl:text-base text-black font-bold my-1">Description Preview</h4>
-      <Markdown className="bg-neutral-100 rounded-[6px] p-2 max-h-[280px] min-h-[32px] overflow-y-scroll">{description}</Markdown>
     </>
   );
 }
