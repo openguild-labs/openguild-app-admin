@@ -29,3 +29,13 @@ type TUserListResponse = {
   list: TUserModel[];
   total: number;
 };
+
+type TRewardModel = {
+  id: number;
+  name: string;
+  description: string;
+  quantity: number;
+  type: string;
+  requirements: string;
+  image: string;
+};

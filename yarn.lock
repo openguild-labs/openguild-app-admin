@@ -947,6 +947,11 @@
   resolved "https://registry.npmjs.org/@tiptap/extension-paragraph/-/extension-paragraph-2.4.0.tgz"
   integrity sha512-+yse0Ow67IRwcACd9K/CzBcxlpr9OFnmf0x9uqpaWt1eHck1sJnti6jrw5DVVkyEBHDh/cnkkV49gvctT/NyCw==
 
+"@tiptap/extension-placeholder@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/@tiptap/extension-placeholder/-/extension-placeholder-2.4.0.tgz"
+  integrity sha512-SmWOjgWpmhFt0BPOnL65abCUH0wS5yksUJgtANn5bQoHF4HFSsyl7ETRmgf0ykxdjc7tzOg31FfpWVH4wzKSYg==
+
 "@tiptap/extension-strike@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npmjs.org/@tiptap/extension-strike/-/extension-strike-2.4.0.tgz"

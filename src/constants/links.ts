@@ -1,6 +1,9 @@
+export const HOME_PATH = "/";
+export const USERS_PATH = "/users";
 export const MISSIONS_PATH = "/missions";
 export const MISSIONS_CATEGORIES_PATH = "/mission-categories";
 export const ADD_MISSION_PATH = "/missions/add";
 export const MISSION_DETAILS_PATH = "/missions/:id";
-export const USERS_PATH = "/users";
-export const HOME_PATH = "/";
+export const REWARDS_PATH = "/rewards";
+export const ADD_REWARD_PATH = "/rewards/add";
+export const REWARD_DETAILS_PATH = "/rewards/:id";

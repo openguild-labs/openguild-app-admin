@@ -1,5 +1,5 @@
 import { COLLAPSED_SIDER_WIDTH, HEADER_HEIGHT, SIDER_WIDTH } from "@/constants/dimensions";
-import { HOME_PATH, MISSIONS_CATEGORIES_PATH, MISSIONS_PATH, USERS_PATH } from "@/constants/links";
+import { HOME_PATH, MISSIONS_CATEGORIES_PATH, MISSIONS_PATH, REWARDS_PATH, USERS_PATH } from "@/constants/links";
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -10,6 +10,7 @@ import logo from "@/assets/images/logo.png";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { closeDrawer, layoutStore, setCollapsedSider } from "@/redux/slides/layout";
 import { TbCategoryPlus } from "react-icons/tb";
+import { IoGiftOutline } from "react-icons/io5";
 import "./style.css";
 
 function a11yProps(index: number) {
@@ -35,6 +36,11 @@ const linkItems = [
     icon: <BiTask size={18} />,
     to: MISSIONS_PATH,
   },
+  {
+    label: "Reward",
+    icon: <IoGiftOutline size={18} />,
+    to: REWARDS_PATH,
+  },
 ];
 
 function Sider() {
@@ -53,7 +59,7 @@ function Sider() {
   return (
     <>
       <aside
-        className={`fixed top-0 left-0 bottom-0 bg-white shadow-md transition-effect z-20 ${
+        className={`fixed top-0 left-0 bottom-0 bg-white shadow-md transition-effect z-30 ${
           collapsed ? `layout-sider-${COLLAPSED_SIDER_WIDTH}` : `layout-sider-${SIDER_WIDTH}`
         }`}
       >
@@ -105,7 +111,7 @@ function Sider() {
                       }}
                     >
                       <CollapsedWrapper collapsed={collapsed}>
-                        <span className="w-full text-base capitalize">{item.label}</span>
+                        <span className="w-full text-base capitalize overflow-hidden text-nowrap">{item.label}</span>
                       </CollapsedWrapper>
                     </span>
                   </div>

@@ -15,7 +15,7 @@ export const createMission = async (missionCreation: TMissionCreation<UploadFile
       mission_category_id: missionCreation.mission_category_id,
     })
     .select<string, TMissionModel>();
-  if (missionCreationError !== null) {
+  if (missionCreationError !== null || data === null) {
     message.error("Error creating mission");
     return undefined;
   }
@@ -75,7 +75,7 @@ export const listMissions = async ({ pagination, searchingTitle }: TMissionQuery
     getTotalPromise = getTotalPromise.like("title", `%${searchingTitle}%`);
   }
 
-  const getParticipantQuantityPromise = supabase.from("participant_quantity").select<string, TParticipantQuantityResponse>();
+  const getParticipantQuantityPromise = supabase.from("participant_quantity_view").select<string, TParticipantQuantityResponse>();
 
   const [{ data, error }, { data: totalData, error: totalError }, { data: participantQuantityData, error: participantQuantityError }] =
     await Promise.all([getListPromise, getTotalPromise, getParticipantQuantityPromise]);
@@ -215,4 +215,25 @@ export const createTask = async (missionID: string, task: TTaskCreation) => {
   if (error !== null) {
     message.error("Error creating task");
   }
+};
+
+export const listAllMissions = async (search: string) => {
+  const listAllPromise = supabase
+    .from("mission")
+    .select<string, TMissionModel>()
+    .is("deleted_at", null)
+    .order("created_at", { ascending: false });
+
+  if (search !== "") {
+    listAllPromise.like("title", `%${search}%`);
+  }
+
+  const { data, error } = await listAllPromise;
+
+  if (error !== null) {
+    message.error("Error fetching missions");
+    return undefined;
+  }
+
+  return data;
 };

@@ -13,6 +13,17 @@ Table user as u {
     first_name text
     last_name text
     is_student boolean
+    username text
+    telegram text
+    facebook text
+    twitter text
+    discord text
+}
+
+Table mission_category as mc {
+  id int [pk, increment]
+  name text
+  description text
 }
 
 Table mission as m {
@@ -22,6 +33,7 @@ Table mission as m {
     start_date text
     end_date text
     banner text
+    mission_category_id int [ref: > mc.id]
 }
 
 Table task as t {
@@ -31,6 +43,8 @@ Table task as t {
     name text
     description text
     action text
+    xp int
+    button_placeholder text
 }
 
 Table completed_task as ct {
@@ -38,4 +52,22 @@ Table completed_task as ct {
     user_id int [ref: > u.id]
     task_id int [ref: > t.id]
     completed_date date
+}
+
+Table proofs_of_work as p {
+    id int [pk, increment]
+    user_id int [ref: > u.id]
+    task_id int [ref: > t.id]
+    link text
+    image text
+}
+
+Table reward as r {
+    id int [pk, increment]
+    name text
+    description text
+    type text
+    quantity int
+    image text
+    requirement text
 }

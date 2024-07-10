@@ -1,10 +1,9 @@
 import { supabase } from "@/supabase";
-import { message, UploadFile } from "antd";
+import { UploadFile } from "antd";
 
 export const uploadBanner = async (missionID: number, file: UploadFile) => {
   const { data, error } = await supabase.storage.from("banners").upload(`${missionID}/${file.name}`, file.originFileObj as Blob);
   if (error !== null) {
-    message.error("Error uploading image");
     return "";
   }
 

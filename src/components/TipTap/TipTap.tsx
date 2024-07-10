@@ -11,6 +11,9 @@ import TableRow from "@tiptap/extension-table-row";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Image from "@tiptap/extension-image";
+import Placeholder from "@tiptap/extension-placeholder";
+
+export const TIPTAP_EMPTY_STRING = "<p></p>";
 
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
@@ -51,11 +54,18 @@ interface ITipTapProps {
   editable?: boolean;
   className?: string;
   placeholder?: string;
+  style?: React.CSSProperties | undefined;
 }
 
-function TipTap({ content, setContent, editable, className, placeholder }: ITipTapProps) {
+function TipTap({ content, setContent, editable, className, placeholder, style }: ITipTapProps) {
   const editor = useEditor({
-    extensions,
+    extensions: [
+      ...extensions,
+      Placeholder.configure({
+        // Use a placeholder:
+        placeholder,
+      }),
+    ],
     content,
     onUpdate({ editor }) {
       if (setContent) setContent(editor.getHTML());
@@ -73,9 +83,10 @@ function TipTap({ content, setContent, editable, className, placeholder }: ITipT
       style={{
         padding: editable ? "0.5rem" : "0",
         borderColor: editable ? "#d4d4d4" : "transparent",
+        ...style,
       }}
     >
-      <EditorContent editor={editor} placeholder={placeholder} />
+      <EditorContent editor={editor} />
     </div>
   );
 }

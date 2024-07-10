@@ -93,7 +93,7 @@
   padding: 0.25em 0.3em;
 }
 .tiptap pre {
-  background: #28123e;
+  background: #412062;
   color: #fff;
   border-radius: 0.5rem;
   margin: 1.5rem 0;
@@ -206,4 +206,12 @@
 .tiptap.resize-cursor {
   cursor: ew-resize;
   cursor: col-resize;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: rgba(53, 38, 28, 0.3);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }

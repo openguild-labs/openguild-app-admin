@@ -160,6 +160,6 @@ body {
   display: none;
 }
 
-.ck-powered-by {
-  display: none !important;
+.ant-upload-btn-error .ant-upload-drag {
+  border-color: #ff4d4f;
 }

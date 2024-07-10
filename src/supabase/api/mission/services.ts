@@ -1,5 +1,15 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createMission, createTask, deleteTask, getMission, listMissions, updateBanner, updateMission, updateTask } from "./caller";
+import {
+  createMission,
+  createTask,
+  deleteTask,
+  getMission,
+  listAllMissions,
+  listMissions,
+  updateBanner,
+  updateMission,
+  updateTask,
+} from "./callers";
 import { message, UploadFile } from "antd";
 
 export const missionKey = {
@@ -66,5 +76,12 @@ export const useUpdateBanner = () => {
 export const useCreateTask = (missionID: string) => {
   return useMutation({
     mutationFn: (task: TTaskCreation) => createTask(missionID, task),
+  });
+};
+
+export const useListAllMissions = (search: string) => {
+  return useQuery({
+    queryKey: [missionKey.missions, search],
+    queryFn: () => listAllMissions(search),
   });
 };
