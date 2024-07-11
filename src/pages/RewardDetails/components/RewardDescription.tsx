@@ -1,18 +1,18 @@
-import { useUpdateMission } from "@/supabase/api/mission/services";
 import { useState } from "react";
 import FloatButtons from "@/components/FloatButtons";
 import TipTap from "@/components/TipTap";
+import { useUpdateReward } from "@/supabase/api/reward/services";
 
-interface IMissionDescriptionProps {
+interface IRewardDescriptionProps {
   description: string;
-  missionID: string;
+  rewardID: string;
   refetch: () => void;
 }
 
-function MissionDescription({ description, missionID, refetch }: IMissionDescriptionProps) {
+function RewardDescription({ description, rewardID, refetch }: IRewardDescriptionProps) {
   const [value, setValue] = useState<string>(description);
   const [editMode, setEditMode] = useState<boolean>(false);
-  const { mutate, isPending } = useUpdateMission();
+  const { mutate, isPending } = useUpdateReward();
 
   const onSave = () => {
     if (value === "") {
@@ -22,7 +22,7 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
 
     mutate(
       {
-        missionID,
+        rewardID,
         updates: [{ key: "description", value }],
       },
       {
@@ -66,4 +66,4 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
   );
 }
 
-export default MissionDescription;
+export default RewardDescription;

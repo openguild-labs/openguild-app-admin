@@ -1,18 +1,18 @@
 import { Input, Typography } from "antd";
 import { useState } from "react";
 import FloatButtons from "@/components/FloatButtons";
-import { useUpdateMission } from "@/supabase/api/mission/services";
+import { useUpdateReward } from "@/supabase/api/reward/services";
 
-interface IMissionTitleProps {
-  title: string;
-  missionID: string;
+interface IRewardNameProps {
+  name: string;
+  rewardID: string;
   refetch: () => void;
 }
 
-function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
-  const [value, setValue] = useState<string>(title);
+function RewardName({ name, rewardID, refetch }: IRewardNameProps) {
+  const [value, setValue] = useState<string>(name);
   const [editMode, setEditMode] = useState<boolean>(false);
-  const { mutate, isPending } = useUpdateMission();
+  const { mutate, isPending } = useUpdateReward();
 
   const onSave = () => {
     if (value === "") {
@@ -22,8 +22,8 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
 
     mutate(
       {
-        missionID,
-        updates: [{ key: "title", value }],
+        rewardID,
+        updates: [{ key: "name", value }],
       },
       {
         onSuccess: () => {
@@ -35,7 +35,7 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
   };
 
   const onCancel = () => {
-    setValue(title);
+    setValue(name);
     setEditMode(false);
   };
 
@@ -83,4 +83,4 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
   );
 }
 
-export default MissionTitle;
+export default RewardName;

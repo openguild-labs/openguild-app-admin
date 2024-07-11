@@ -5,23 +5,23 @@ import { RcFile } from "antd/es/upload";
 import { useState } from "react";
 import { HiOutlineInbox } from "react-icons/hi2";
 import { RxUpdate } from "react-icons/rx";
-import { useUpdateBanner } from "@/supabase/api/mission/services";
 import FloatButtons from "@/components/FloatButtons";
+import { useUpdateImage } from "@/supabase/api/reward/services";
 
-interface IMissionBannerProps {
-  bannerURL: string;
-  banner: string;
-  missionID: string;
+interface IRewardImageProps {
+  imageURL: string;
+  image: string;
+  rewardID: string;
   refetch: () => void;
 }
 
 const { Dragger } = Upload;
 
-function MissionBanner({ bannerURL, banner, missionID, refetch }: IMissionBannerProps) {
-  const { mutate, isPending } = useUpdateBanner();
+function RewardImage({ imageURL, image, rewardID, refetch }: IRewardImageProps) {
+  const { mutate, isPending } = useUpdateImage();
   const [editMode, setEditMode] = useState<boolean>(false);
   const [files, setFiles] = useState<UploadFile[]>([]);
-  const [previewImage, setPreviewImage] = useState(bannerURL);
+  const [previewImage, setPreviewImage] = useState(imageURL);
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -38,8 +38,8 @@ function MissionBanner({ bannerURL, banner, missionID, refetch }: IMissionBanner
 
     mutate(
       {
-        missionID,
-        oldBanner: banner,
+        rewardID,
+        oldImage: image,
         file: files[0],
       },
       {
@@ -53,7 +53,7 @@ function MissionBanner({ bannerURL, banner, missionID, refetch }: IMissionBanner
   };
 
   const onCancel = () => {
-    setPreviewImage(bannerURL);
+    setPreviewImage(imageURL);
     setFiles([]);
     setEditMode(false);
   };
@@ -96,7 +96,7 @@ function MissionBanner({ bannerURL, banner, missionID, refetch }: IMissionBanner
               <p className="text-[32px]">
                 <HiOutlineInbox />
               </p>
-              <p className="text-sm xl:text-base">Click or drag file to this area to upload Mission banner</p>
+              <p className="text-sm xl:text-base">Click or drag file to this area to upload Reward image</p>
             </div>
           </Dragger>
         ) : (
@@ -114,4 +114,4 @@ function MissionBanner({ bannerURL, banner, missionID, refetch }: IMissionBanner
   );
 }
 
-export default MissionBanner;
+export default RewardImage;

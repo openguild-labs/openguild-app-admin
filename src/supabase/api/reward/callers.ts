@@ -2,6 +2,8 @@ import { supabase } from "@/supabase";
 import { message, UploadFile } from "antd";
 import { uploadImage } from "./util";
 
+const EXPIRED_TIME = 60 * 60; // 1 hour
+
 export const createReward = async (rewardCreation: TRewardCreation<UploadFile>) => {
   const { data, error } = await supabase
     .from("reward")
@@ -59,4 +61,67 @@ export const countTotalRewards = async () => {
   }
 
   return data.length;
+};
+
+export const getReward = async (id: string) => {
+  const { data, error } = await supabase.from("reward").select<string, TRewardModel>().eq("id", id).is("deleted_at", null);
+  if (error !== null || data === null) {
+    message.error("Error fetching reward");
+    return undefined;
+  }
+  const reward = data[0];
+  const getImagePromise = supabase.storage.from("reward_images").createSignedUrl(reward.image, EXPIRED_TIME);
+  const getMissionPromise = supabase
+    .from("mission")
+    .select<string, TMissionModel>()
+    .in("id", reward.requirements.split(","))
+    .is("deleted_at", null);
+
+  const [{ data: imageData, error: imageError }, { data: missionData, error: missionError }] = await Promise.all([
+    getImagePromise,
+    getMissionPromise,
+  ]);
+  const errorIsNotNull = imageError !== null || missionError !== null;
+  const dataIsNull = imageData === null || missionData === null;
+  if (errorIsNotNull || dataIsNull) {
+    message.error("Error fetching reward");
+    return undefined;
+  }
+
+  return {
+    ...reward,
+    image_url: imageData.signedUrl,
+    missions: missionData,
+  } as TRewardDetailResponse;
+};
+
+export const updateReward = async (update: TRewardUpdate) => {
+  const { error } = await supabase
+    .from("reward")
+    .update(
+      update.updates.reduce((acc, current) => {
+        acc[current.key] = current.value;
+        return acc;
+      }, {} as Record<string, string | number>)
+    )
+    .eq("id", update.rewardID);
+  if (error !== null) {
+    message.error("Error updating reward");
+  }
+};
+
+export const updateImage = async ({ rewardID, oldImage, file }: TUpdateImage) => {
+  const deleteImagePromise = supabase.storage.from("reward_images").remove([oldImage]);
+  const uploadImagePromise = supabase.storage.from("reward_images").upload(`${rewardID}/${file.name}`, file.originFileObj as Blob);
+
+  const [{ error: deleteError }, { data, error: uploadError }] = await Promise.all([deleteImagePromise, uploadImagePromise]);
+  if (deleteError !== null || uploadError !== null) {
+    message.error("Error updating image");
+    return;
+  }
+
+  const { error } = await supabase.from("reward").update({ image: data.path }).eq("id", rewardID);
+  if (error !== null) {
+    message.error("Error updating image");
+  }
 };

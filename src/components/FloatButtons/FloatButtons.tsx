@@ -6,11 +6,18 @@ interface IFloatButtonsProps {
   onSave: () => void;
   onCancel: () => void;
   isLoading?: boolean;
+  relative?: boolean;
 }
 
-function FloatButtons({ onSave, onCancel, isLoading }: IFloatButtonsProps) {
+function FloatButtons({ onSave, onCancel, isLoading, relative = false }: IFloatButtonsProps) {
   return (
-    <div className="flex absolute -top-9 right-0 gap-x-1 z-10">
+    <div
+      className="flex right-0 gap-x-1 z-10"
+      style={{
+        position: relative ? "relative" : "absolute",
+        top: relative ? "auto" : "-2.25rem",
+      }}
+    >
       <Button
         className="aspect-square p-0 flex-center"
         onClick={(e) => {

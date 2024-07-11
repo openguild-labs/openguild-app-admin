@@ -1,7 +1,7 @@
 import { DatePicker } from "antd";
 import { useState } from "react";
 import dayjs from "dayjs";
-import FloatButtons from "./FloatButtons";
+import FloatButtons from "@/components/FloatButtons";
 import { useUpdateMission } from "@/supabase/api/mission/services";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 

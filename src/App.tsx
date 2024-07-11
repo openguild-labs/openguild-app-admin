@@ -12,6 +12,7 @@ import {
   MISSION_DETAILS_PATH,
   MISSIONS_CATEGORIES_PATH,
   MISSIONS_PATH,
+  REWARD_DETAILS_PATH,
   REWARDS_PATH,
   USERS_PATH,
 } from "./constants/links";
@@ -22,6 +23,7 @@ import "./tiptap.css";
 import RewardsLayout from "./components/RewardsLayout";
 import Rewards from "./pages/Rewards";
 import RewardCreation from "./pages/RewardCreation";
+import RewardDetails from "./pages/RewardDetails";
 
 function App() {
   const routes: RouteObject[] = [
@@ -45,6 +47,7 @@ function App() {
           children: [
             { path: REWARDS_PATH, element: <Rewards /> },
             { path: ADD_REWARD_PATH, element: <RewardCreation /> },
+            { path: REWARD_DETAILS_PATH, element: <RewardDetails /> },
           ],
         },
         { path: MISSIONS_CATEGORIES_PATH, element: <MissionCategories /> },

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import FloatButtons from "./FloatButtons";
 import { Select } from "antd";
 import { useListAllMissionCategories } from "@/supabase/api/missionCategory/service";
 import { useUpdateMission } from "@/supabase/api/mission/services";
+import FloatButtons from "@/components/FloatButtons";
 
 interface IMissionCategoryProps {
   missionID: string;

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { message, UploadFile } from "antd";
-import { countTotalRewards, createReward, listRewards } from "./callers";
+import { countTotalRewards, createReward, getReward, listRewards, updateImage, updateReward } from "./callers";
 
 export const rewardKey = {
   reward: "reward",
@@ -30,5 +30,24 @@ export const useCountTotalRewards = () => {
   return useQuery({
     queryKey: [rewardKey.rewards],
     queryFn: () => countTotalRewards(),
+  });
+};
+
+export const useGetReward = (id: string) => {
+  return useQuery({
+    queryKey: [rewardKey.reward, id],
+    queryFn: () => getReward(id),
+  });
+};
+
+export const useUpdateReward = () => {
+  return useMutation({
+    mutationFn: (update: TRewardUpdate) => updateReward(update),
+  });
+};
+
+export const useUpdateImage = () => {
+  return useMutation({
+    mutationFn: (update: TUpdateImage) => updateImage(update),
   });
 };

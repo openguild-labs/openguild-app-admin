@@ -65,7 +65,6 @@ function InputInfo({ form, validation }: IInputInfoProps) {
           ]}
         >
           <Select
-            labelInValue
             className="w-full text-sm xl:text-base"
             placeholder="Select task type"
             options={[

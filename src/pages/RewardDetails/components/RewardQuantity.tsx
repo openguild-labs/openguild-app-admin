@@ -1,29 +1,29 @@
-import { Input, Typography } from "antd";
+import { Input } from "antd";
 import { useState } from "react";
 import FloatButtons from "@/components/FloatButtons";
-import { useUpdateMission } from "@/supabase/api/mission/services";
+import { useUpdateReward } from "@/supabase/api/reward/services";
 
-interface IMissionTitleProps {
-  title: string;
-  missionID: string;
+interface IRewardQuantityProps {
+  quantity: number;
+  rewardID: string;
   refetch: () => void;
 }
 
-function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
-  const [value, setValue] = useState<string>(title);
+function RewardQuantity({ quantity, rewardID, refetch }: IRewardQuantityProps) {
+  const [value, setValue] = useState<number>(quantity);
   const [editMode, setEditMode] = useState<boolean>(false);
-  const { mutate, isPending } = useUpdateMission();
+  const { mutate, isPending } = useUpdateReward();
 
   const onSave = () => {
-    if (value === "") {
+    if (value < 1) {
       onCancel();
       return;
     }
 
     mutate(
       {
-        missionID,
-        updates: [{ key: "title", value }],
+        rewardID,
+        updates: [{ key: "quantity", value }],
       },
       {
         onSuccess: () => {
@@ -35,7 +35,7 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
   };
 
   const onCancel = () => {
-    setValue(title);
+    setValue(quantity);
     setEditMode(false);
   };
 
@@ -56,7 +56,7 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
           <Input
             value={value}
             onChange={(e) => {
-              setValue(e.target.value);
+              setValue(Number(e.target.value));
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -65,22 +65,17 @@ function MissionTitle({ title, missionID, refetch }: IMissionTitleProps) {
                 onCancel();
               }
             }}
-            className="text-base xl:text-lg"
+            className="text-sm xl:text-base"
+            type="number"
           />
         </div>
       ) : (
-        <Typography.Paragraph
-          ellipsis={{
-            rows: 2,
-            tooltip: value,
-          }}
-          className="text-xl xl:text-2xl ant-typo-mb-0 font-bold text-primary-color"
-        >
-          {value}
-        </Typography.Paragraph>
+        <div className="text-sm xl:text-base">
+          <span className="text-primary-color font-bold">Quantity</span>: {value}
+        </div>
       )}
     </div>
   );
 }
 
-export default MissionTitle;
+export default RewardQuantity;
