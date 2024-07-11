@@ -32,10 +32,10 @@ function TableRow({ data }: ITableRowProps) {
           <div className="text-sm xl:text-base">{data.wallet_address.substring(0, 5) + "..." + data.wallet_address.slice(-5)}</div>
         </TableCell>
         <TableCell>
-          <div className="max-w-[140px] text-sm xl:text-base text-ellipsis overflow-hidden">{data.first_name || "--"}</div>
+          <div className="max-w-[140px] text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{data.first_name || "--"}</div>
         </TableCell>
         <TableCell>
-          <div className="max-w-[140px] text-sm xl:text-base text-ellipsis overflow-hidden">{data.last_name || "--"}</div>
+          <div className="max-w-[140px] text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{data.last_name || "--"}</div>
         </TableCell>
         <TableCell align="center">
           <div className="flex justify-center">{data.is_student && <FaCheckCircle className="text-green-500 text-base xl:text-lg" />}</div>

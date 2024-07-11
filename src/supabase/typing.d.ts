@@ -28,3 +28,14 @@ type TMissionCategoryModel = {
   name: string;
   description: string;
 };
+
+type TRewardModel = {
+  id: number;
+  name: string;
+  description: string;
+  quantity: number;
+  type: string;
+  requirements: string;
+  image: string;
+  created_at: string;
+};

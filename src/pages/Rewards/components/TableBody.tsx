@@ -1,10 +1,10 @@
-import { MISSIONS_PATH } from "@/constants/links";
+import { REWARDS_PATH } from "@/constants/links";
 import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Empty } from "antd";
 
 interface ITableBodyProps {
-  data: TMissionResponse[];
+  data: TRewardModel[];
   isLoading: boolean;
 }
 
@@ -30,7 +30,7 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
         <TableRow>
           <TableCell colSpan={5} style={{ borderBottom: "none" }}>
             <div className="flex justify-center">
-              <Empty description="Have no mission" />
+              <Empty description="Have no reward" />
             </div>
           </TableCell>
         </TableRow>
@@ -45,20 +45,20 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
           key={row.id}
           className="transition-effect hover:cursor-pointer hover:bg-gray-200"
           onClick={() => {
-            navigate(`${MISSIONS_PATH}/${row.id}`);
+            navigate(`${REWARDS_PATH}/${row.id}`);
           }}
         >
           <TableCell className="w-[40%]">
-            <span className="text-start text-ellipsis line-clamp-1">{row.title}</span>
+            <span className="text-start text-ellipsis line-clamp-1">{row.name}</span>
           </TableCell>
           <TableCell>
-            <div className="text-sm xl:text-base">{row.status}</div>
+            <div className="text-sm xl:text-base">{row.type}</div>
           </TableCell>
           <TableCell>
-            <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.participants}</div>
+            <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.quantity}</div>
           </TableCell>
           <TableCell>
-            <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.created_at}</div>
+            <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.created_at.split("T")[0]}</div>
           </TableCell>
         </TableRow>
       ))}

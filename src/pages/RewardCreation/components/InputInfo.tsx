@@ -1,6 +1,7 @@
 import TipTap from "@/components/TipTap";
 import { TIPTAP_EMPTY_STRING } from "@/components/TipTap/TipTap";
 import colors from "@/config/colors";
+import { rewardType } from "@/constants/types";
 import { Form, FormInstance, Input, Select } from "antd";
 import { useEffect, useState } from "react";
 
@@ -8,9 +9,6 @@ interface IInputInfoProps {
   form: FormInstance;
   validation: number;
 }
-
-const THIRD_PARTY_GIFTS = "Third party gifts";
-const PHYSICAL_GOODS = "Physical goods";
 
 function InputInfo({ form, validation }: IInputInfoProps) {
   const [description, setDescription] = useState("");
@@ -72,14 +70,17 @@ function InputInfo({ form, validation }: IInputInfoProps) {
             placeholder="Select task type"
             options={[
               {
-                label: THIRD_PARTY_GIFTS,
-                value: THIRD_PARTY_GIFTS,
+                label: rewardType.thirdPartyGifts,
+                value: rewardType.thirdPartyGifts,
               },
               {
-                label: PHYSICAL_GOODS,
-                value: PHYSICAL_GOODS,
+                label: rewardType.physicalGoods,
+                value: rewardType.physicalGoods,
               },
             ]}
+            onChange={(item) => {
+              form.setFieldValue("type", item.value);
+            }}
           />
         </Form.Item>
       </div>

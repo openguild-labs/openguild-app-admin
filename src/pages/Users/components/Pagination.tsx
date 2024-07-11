@@ -27,7 +27,7 @@ function Pagination({ total }: IPaginationProps) {
 
   return (
     <div className="w-full flex justify-end items-center mt-4">
-      <span className="text-sm xl:text-base">Have {total} users</span>
+      <span className="text-sm xl:text-base">{`Have ${total} user${total > 1 ? "s" : ""}`}</span>
       <div className="w-[2px] rounded-full h-6 bg-primary-color mr-1 ml-3" />
       <PaginationMUI count={Math.ceil(total / LIMIT_DEFAULT)} color="primary" page={page} onChange={handleChangePage} />
     </div>

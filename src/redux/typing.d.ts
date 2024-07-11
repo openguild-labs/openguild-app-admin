@@ -18,3 +18,7 @@ type TPagination = {
 type TMissionCategoryQuery = {
   pagination: TPagination;
 };
+
+type TRewardQuery = {
+  pagination: TPagination;
+};
