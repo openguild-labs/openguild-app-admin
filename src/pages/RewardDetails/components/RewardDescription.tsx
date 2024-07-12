@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import FloatButtons from "@/components/FloatButtons";
 import TipTap from "@/components/TipTap";
 import { useUpdateReward } from "@/supabase/api/reward/services";
+import { TTipTap } from "@/components/TipTap/TipTap";
 
 interface IRewardDescriptionProps {
   description: string;
@@ -13,6 +14,7 @@ function RewardDescription({ description, rewardID, refetch }: IRewardDescriptio
   const [value, setValue] = useState<string>(description);
   const [editMode, setEditMode] = useState<boolean>(false);
   const { mutate, isPending } = useUpdateReward();
+  const tiptapRef = useRef<TTipTap>(null);
 
   const onSave = () => {
     if (value === "") {
@@ -36,6 +38,7 @@ function RewardDescription({ description, rewardID, refetch }: IRewardDescriptio
 
   const onCancel = () => {
     setValue(description);
+    tiptapRef.current?.cancel(description);
     setEditMode(false);
   };
 
@@ -60,7 +63,7 @@ function RewardDescription({ description, rewardID, refetch }: IRewardDescriptio
         }}
       >
         {editMode && <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />}
-        <TipTap content={description} setContent={setValue} className="max-h-[288px] overflow-y-scroll" editable={editMode} />
+        <TipTap ref={tiptapRef} content={value} setContent={setValue} className="max-h-[288px] overflow-y-scroll" editable={editMode} />
       </div>
     </div>
   );

@@ -18,12 +18,13 @@ import {
 } from "./constants/links";
 import MissionDetails from "./pages/MissionDetails";
 import MissionCategories from "./pages/MissionCategories";
-import "./markdown-light.css";
-import "./tiptap.css";
 import RewardsLayout from "./components/RewardsLayout";
 import Rewards from "./pages/Rewards";
 import RewardCreation from "./pages/RewardCreation";
 import RewardDetails from "./pages/RewardDetails";
+import "./markdown-light.css";
+import "./tiptap.css";
+import "./antd.css";
 
 function App() {
   const routes: RouteObject[] = [

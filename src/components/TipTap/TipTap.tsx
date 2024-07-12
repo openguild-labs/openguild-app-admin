@@ -12,7 +12,11 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
-import { useEffect } from "react";
+import { forwardRef, Ref, useEffect, useImperativeHandle, useState } from "react";
+import { Button, Modal, Upload, UploadFile, UploadProps } from "antd";
+import { CiImageOn } from "react-icons/ci";
+import { FiPlus } from "react-icons/fi";
+import { resizeFile } from "@/utils/file";
 
 export const TIPTAP_EMPTY_STRING = "<p></p>";
 
@@ -58,7 +62,14 @@ interface ITipTapProps {
   editable?: boolean;
 }
 
-function TipTap({ content, editable = true, setContent, className, placeholder, style }: ITipTapProps) {
+export type TTipTap = {
+  cancel: (content: string) => void;
+};
+
+const TipTap = forwardRef(function TipTap(
+  { content, editable = true, setContent, className, placeholder, style }: ITipTapProps,
+  ref: Ref<TTipTap>
+) {
   const editor = useEditor({
     extensions: [
       ...extensions,
@@ -78,13 +89,29 @@ function TipTap({ content, editable = true, setContent, className, placeholder, 
     },
   });
 
+  useImperativeHandle(ref, () => ({
+    cancel(content) {
+      editor
+        ?.chain()
+        .setContent(content || "")
+        .run();
+    },
+  }));
+
+  const [openModal, setOpenModal] = useState(false);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
   useEffect(() => {
     if (!editable && editor) editor.chain().blur().run();
   }, [editable, editor]);
 
+  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => setFileList(newFileList);
+  const onCancel = () => {
+    setOpenModal(false);
+    setFileList([]);
+  };
   return (
     <div
-      className="border border-neutral-300 p-2 rounded-lg"
+      className="border border-neutral-300 p-2 rounded-lg relative"
       style={{
         ...style,
         padding: editable ? "" : "0px",
@@ -92,8 +119,45 @@ function TipTap({ content, editable = true, setContent, className, placeholder, 
       }}
     >
       <EditorContent editor={editor} />
+      {editable && <Button icon={<CiImageOn size={20} />} className="h-6 !w-6 absolute top-2 right-2" onClick={() => setOpenModal(true)} />}
+      <Modal
+        centered
+        title="Upload description images"
+        closeIcon={null}
+        open={openModal}
+        onCancel={onCancel}
+        onOk={async () => {
+          if (fileList.length > 0) {
+            for (const file of fileList) {
+              const resizedFile = await resizeFile(file.originFileObj as Blob);
+              editor?.chain().focus().setImage({ src: resizedFile }).run();
+            }
+
+            onCancel();
+          }
+        }}
+      >
+        <Upload
+          customRequest={({ onSuccess }) => {
+            if (onSuccess) {
+              onSuccess("ok");
+            }
+          }}
+          multiple
+          accept="image/*"
+          className="h-full ant-upload-no-preview"
+          listType="picture-card"
+          fileList={fileList}
+          onChange={handleChange}
+        >
+          <button type="button" className="border-0 bg-transparent flex flex-col items-center justify-center">
+            <FiPlus size={16} />
+            <span className="mt-1 text-sm xl:text-base">Upload</span>
+          </button>
+        </Upload>
+      </Modal>
     </div>
   );
-}
+});
 
 export default TipTap;

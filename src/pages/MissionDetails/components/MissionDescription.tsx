@@ -1,7 +1,8 @@
 import { useUpdateMission } from "@/supabase/api/mission/services";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import FloatButtons from "@/components/FloatButtons";
 import TipTap from "@/components/TipTap";
+import { TTipTap } from "@/components/TipTap/TipTap";
 
 interface IMissionDescriptionProps {
   description: string;
@@ -12,6 +13,7 @@ interface IMissionDescriptionProps {
 function MissionDescription({ description, missionID, refetch }: IMissionDescriptionProps) {
   const [value, setValue] = useState<string>(description);
   const [editMode, setEditMode] = useState<boolean>(false);
+  const tiptapRef = useRef<TTipTap>(null);
   const { mutate, isPending } = useUpdateMission();
 
   const onSave = () => {
@@ -36,6 +38,7 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
 
   const onCancel = () => {
     setValue(description);
+    tiptapRef.current?.cancel(description);
     setEditMode(false);
   };
 
@@ -61,7 +64,7 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
       >
         {editMode && <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />}
 
-        <TipTap content={description} setContent={setValue} editable={editMode} />
+        <TipTap ref={tiptapRef} content={description} setContent={setValue} editable={editMode} />
       </div>
     </div>
   );
