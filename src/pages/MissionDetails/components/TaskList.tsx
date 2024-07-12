@@ -104,7 +104,7 @@ function TaskList({ tasks, refetch }: ITaskListProps) {
       >
         {openDrawer && (
           <Form form={form} name="mission_editing">
-            <TaskFormItems form={form} taskType={editTask?.type} isManual={isManual} />
+            <TaskFormItems form={form} taskType={editTask?.type} isManual={isManual} descriptionDefault={editTask?.description} />
             <div className="flex justify-end gap-x-3 mt-4">
               {!addNewTask && (
                 <Popconfirm

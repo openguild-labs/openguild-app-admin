@@ -65,6 +65,7 @@ function InputInfo({ form, validation }: IInputInfoProps) {
           ]}
         >
           <Select
+            labelInValue
             className="w-full text-sm xl:text-base"
             placeholder="Select task type"
             options={[
@@ -100,7 +101,6 @@ function InputInfo({ form, validation }: IInputInfoProps) {
               }
               setIsError(false);
             }}
-            editable={true}
             className="h-[288px] overflow-y-scroll"
             style={{
               borderColor: isError ? colors["error"] : "",

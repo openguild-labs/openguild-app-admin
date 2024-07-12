@@ -12,6 +12,7 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
+import { useEffect } from "react";
 
 export const TIPTAP_EMPTY_STRING = "<p></p>";
 
@@ -51,13 +52,13 @@ const extensions = [
 interface ITipTapProps {
   content?: string;
   setContent?: (content: string) => void;
-  editable?: boolean;
   className?: string;
   placeholder?: string;
   style?: React.CSSProperties | undefined;
+  editable?: boolean;
 }
 
-function TipTap({ content, setContent, editable, className, placeholder, style }: ITipTapProps) {
+function TipTap({ content, editable = true, setContent, className, placeholder, style }: ITipTapProps) {
   const editor = useEditor({
     extensions: [
       ...extensions,
@@ -77,13 +78,17 @@ function TipTap({ content, setContent, editable, className, placeholder, style }
     },
   });
 
+  useEffect(() => {
+    if (!editable && editor) editor.chain().blur().run();
+  }, [editable, editor]);
+
   return (
     <div
       className="border border-neutral-300 p-2 rounded-lg"
       style={{
-        padding: editable ? "0.5rem" : "0",
-        borderColor: editable ? "#d4d4d4" : "transparent",
         ...style,
+        padding: editable ? "" : "0px",
+        borderColor: editable ? "" : "transparent",
       }}
     >
       <EditorContent editor={editor} />

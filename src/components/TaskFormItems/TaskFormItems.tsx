@@ -11,27 +11,29 @@ interface TTaskFormItemsProps {
   form: FormInstance;
   taskType?: string;
   isManual?: boolean;
+  descriptionDefault?: string;
 }
 
 const WORKSHOP_TYPE = "Workshop";
 
-function TaskFormItems({ form, isManual: isManualDefault = false, taskType: taskTypeDefault }: TTaskFormItemsProps) {
+function TaskFormItems({
+  form,
+  isManual: isManualDefault = false,
+  taskType: taskTypeDefault,
+  descriptionDefault = "",
+}: TTaskFormItemsProps) {
   const [taskType, setTaskType] = useState<string>(taskTypeDefault || "");
   const isTwitter = taskType === socialMedia.twitter;
   const [isManual, setIsManual] = useState(isManualDefault);
   const intentState = useAppSelector(intentLinkParamsStore);
   const intentStateStr = JSON.stringify(intentState);
-  const [description, setDescription] = useState<string>("");
+  const [description, setDescription] = useState<string>(descriptionDefault);
 
   useEffect(() => {
     if (isTwitter && !isManual) {
       form.setFieldValue("action", getIntentLink(intentState));
     }
   }, [intentStateStr, isTwitter, isManual, form, intentState]);
-
-  useEffect(() => {
-    setDescription(form.getFieldValue("description") as string);
-  }, [description, form]);
 
   return (
     <>
@@ -137,18 +139,15 @@ function TaskFormItems({ form, isManual: isManualDefault = false, taskType: task
       </Form.Item>
       <h4 className="text-sm xl:text-base text-black font-bold my-1">Description</h4>
       <Form.Item name="description">
-        {description !== "" && (
-          <TipTap
-            placeholder="How to complete the task?"
-            content={description}
-            setContent={(value) => {
-              setDescription(value);
-              form.setFieldValue("description", value);
-            }}
-            editable={true}
-            className="h-[288px] overflow-y-scroll"
-          />
-        )}
+        <TipTap
+          placeholder="How to complete the task?"
+          content={description}
+          setContent={(value) => {
+            setDescription(value);
+            form.setFieldValue("description", value);
+          }}
+          className="h-[288px] overflow-y-scroll"
+        />
       </Form.Item>
     </>
   );

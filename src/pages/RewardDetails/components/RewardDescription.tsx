@@ -60,7 +60,7 @@ function RewardDescription({ description, rewardID, refetch }: IRewardDescriptio
         }}
       >
         {editMode && <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />}
-        <TipTap content={description} setContent={setValue} editable={editMode} className="max-h-[288px] overflow-y-scroll" />
+        <TipTap content={description} setContent={setValue} className="max-h-[288px] overflow-y-scroll" editable={editMode} />
       </div>
     </div>
   );

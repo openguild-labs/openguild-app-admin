@@ -60,7 +60,8 @@ function MissionDescription({ description, missionID, refetch }: IMissionDescrip
         }}
       >
         {editMode && <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />}
-        <TipTap content={description} setContent={setValue} editable={editMode} className="max-h-[288px] overflow-y-scroll" />
+
+        <TipTap content={description} setContent={setValue} editable={editMode} />
       </div>
     </div>
   );

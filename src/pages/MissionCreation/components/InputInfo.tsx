@@ -88,7 +88,6 @@ function InputInfo({ form }: IInputInfoProps) {
                 setDescription(value);
                 form.setFieldValue("description", value);
               }}
-              editable={true}
               className="h-[288px] overflow-y-scroll"
             />
           )}
