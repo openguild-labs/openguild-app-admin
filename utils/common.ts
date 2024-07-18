@@ -1,9 +1,7 @@
+"use client";
 import { INTENT_BASE_URL, intentTypes } from "@/constants/twitter";
 import { TIntentState } from "@/redux/slides/intentLinkParams";
-import {
-  usePathname,
-  useSearchParams as useNextSearchParams,
-} from "next/navigation";
+import { usePathname, useSearchParams as useNextSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export const getIntentLink = (intentState: TIntentState) => {
@@ -147,10 +145,7 @@ export const isIntentLink = (link: string) => {
       }
       break;
     case intentTypes.follow:
-      if (
-        !url.searchParams.has("screen_name") &&
-        !url.searchParams.has("user_id")
-      ) {
+      if (!url.searchParams.has("screen_name") && !url.searchParams.has("user_id")) {
         return false;
       }
       break;

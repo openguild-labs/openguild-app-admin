@@ -29,6 +29,16 @@ const getDateString = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
 
+const sendMessageToDiscordChannel = async () => {
+  try {
+    fetch("/api/discord", {
+      method: "POST",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 function MissionCreation() {
   const [current, setCurrent] = useState(0);
   const [form] = Form.useForm();
@@ -76,6 +86,7 @@ function MissionCreation() {
                         onSuccess: (resp) => {
                           if (resp !== undefined) {
                             router.push(MISSIONS_PATH);
+                            sendMessageToDiscordChannel();
                           }
                         },
                       }
