@@ -242,8 +242,8 @@ export const listPoW = async (missionID: string) => {
   const { data: tasks, error: fetchTasksError } = await supabase
     .from("task")
     .select<string, TMissionModel>()
-    .is("deleted_at", null)
-    .eq("mission_id", missionID);
+    .eq("mission_id", missionID)
+    .is("deleted_at", null);
 
   if (fetchTasksError !== null || tasks === null) {
     message.error("Error fetching tasks");
@@ -255,8 +255,9 @@ export const listPoW = async (missionID: string) => {
     .select<string, TProofsOfWorkResponse>(
       `
         id,
-        link,
+        proof,
         image,
+        is_verified,
         user (
           id,
           email,
@@ -265,11 +266,43 @@ export const listPoW = async (missionID: string) => {
       `
     )
     .is("deleted_at", null)
-    .in("task_id", taskIDs);
+    .in("task_id", taskIDs)
+    .order("created_at", { ascending: true });
   if (fetchPoWError !== null || powData === null) {
     message.error("Error fetching proofs of work");
     return undefined;
   }
 
+  if (powData.length > 0) {
+    const images = [];
+    for (const pow of powData) {
+      if (pow.image !== null && pow.image !== undefined && pow.image !== "") {
+        images.push(pow.image);
+      }
+    }
+
+    if (images.length > 0) {
+      const { data, error } = await supabase.storage.from("proofs_of_work").createSignedUrls(images, EXPIRED_TIME);
+      if (error !== null || data === null) {
+        message.error("Error fetching proofs of work");
+        return undefined;
+      }
+      for (let i = 0; i < powData.length; i++) {
+        const powImage = data.find((image) => image.path === powData[i].image);
+        if (powImage !== undefined) {
+          powData[i].image_url = powImage.signedUrl;
+        }
+      }
+    }
+  }
   return powData;
+};
+
+export const verifyPoW = async (PoWID: number) => {
+  const { error } = await supabase.from("proofs_of_work").update({ is_verified: true }).eq("id", PoWID);
+  if (error !== null) {
+    message.error("Error verifying proof of work");
+    return false;
+  }
+  return true;
 };

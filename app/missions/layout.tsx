@@ -7,6 +7,7 @@ import { missionDetailsPathRegex } from "@/constants/regex";
 import { Button } from "antd";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Footer from "./components/Footer";
 
 interface IMissionsLayoutProps {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ function MissionsLayout({ children }: IMissionsLayoutProps) {
   const pathname = usePathname();
   const isAddMission = pathname === ADD_MISSION_PATH;
   const isMissionDetails = missionDetailsPathRegex.test(pathname);
+
   return (
     <div className="flex-1 flex flex-col">
       <div className="flex items-center justify-between h-10 mb-4">
@@ -50,6 +52,7 @@ function MissionsLayout({ children }: IMissionsLayoutProps) {
         )}
       </div>
       <div className="bg-white shadow-md rounded-lg p-3 flex-1">{children}</div>
+      <Footer />
     </div>
   );
 }

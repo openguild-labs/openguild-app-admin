@@ -10,6 +10,7 @@ import {
   updateBanner,
   updateMission,
   updateTask,
+  verifyPoW,
 } from "./callers";
 import { message, UploadFile } from "antd";
 
@@ -92,5 +93,11 @@ export const useListPoW = (missionID: string) => {
   return useQuery({
     queryKey: [missionKey.pow],
     queryFn: () => listPoW(missionID),
+  });
+};
+
+export const useVerifyPoW = () => {
+  return useMutation({
+    mutationFn: (powID: number) => verifyPoW(powID),
   });
 };

@@ -1,6 +1,6 @@
 "use client";
 import { useGetMission } from "@/supabase/api/mission/services";
-import { Divider, Empty } from "antd";
+import { Divider, Empty, message } from "antd";
 import MissionDetailsSkeleton from "./components/MissionDetailsSkeleton";
 import TaskList from "./components/TaskList";
 import MissionTitle from "./components/MissionTitle";
@@ -8,6 +8,10 @@ import MissionDuration from "./components/MissionDuration";
 import MissionBanner from "./components/MissionBanner";
 import MissionDescription from "./components/MissionDescription";
 import MissionCategory from "./components/MissionCategory";
+import { useAppDispatch } from "@/redux/reduxHooks";
+import { setFooter } from "@/redux/slides/missionFooter";
+import ProofsOfWork from "./components/ProofsOfWork";
+import { useEffect } from "react";
 
 interface IMissionDetailsProps {
   params: {
@@ -18,6 +22,15 @@ interface IMissionDetailsProps {
 function MissionDetails({ params }: IMissionDetailsProps) {
   const missionID = params.id;
   const { data, isLoading, refetch } = useGetMission(missionID);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setFooter(<ProofsOfWork missionID={missionID} />));
+
+    return () => {
+      dispatch(setFooter(null));
+    };
+  }, []);
 
   if (isLoading) {
     return <MissionDetailsSkeleton />;

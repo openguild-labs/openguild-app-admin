@@ -44,6 +44,7 @@ type TProofsOfWorkModel = {
   id: number;
   user_id: number;
   task_id: number;
-  link: string;
   image: string;
+  proof: string;
+  is_verified: boolean;
 };

@@ -59,4 +59,5 @@ type TParticipantQuantityResponse = {
 
 type TProofsOfWorkResponse = Partial<TProofsOfWorkModel> & {
   user: Partial<TUserModel>;
+  image_url: string;
 };

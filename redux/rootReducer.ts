@@ -5,6 +5,7 @@ import missionQuerySlide from "./slides/missionQuery";
 import intentLinkParamsSlide from "./slides/intentLinkParams";
 import missionCategoryQuerySlide from "./slides/missionCategoryQuery";
 import rewardQuerySlide from "./slides/rewardQuery";
+import missionFooterSlide from "./slides/missionFooter";
 
 export const rootReducer = combineSlices({
   missionQuery: missionQuerySlide,
@@ -13,4 +14,5 @@ export const rootReducer = combineSlices({
   intentLinkParams: intentLinkParamsSlide,
   missionCategoryQuery: missionCategoryQuerySlide,
   rewardQuery: rewardQuerySlide,
+  missionFooter: missionFooterSlide,
 });
