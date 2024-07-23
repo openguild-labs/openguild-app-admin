@@ -7,3 +7,4 @@ export const MISSION_DETAILS_PATH = "/missions/:id";
 export const REWARDS_PATH = "/rewards";
 export const ADD_REWARD_PATH = "/rewards/add";
 export const REWARD_DETAILS_PATH = "/rewards/:id";
+export const LOGIN_PATH = "/login";

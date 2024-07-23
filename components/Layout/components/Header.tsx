@@ -1,25 +1,21 @@
 "use client";
-import {
-  COLLAPSED_SIDER_WIDTH,
-  HEADER_HEIGHT,
-  SIDER_WIDTH,
-} from "@/constants/dimensions";
+import { COLLAPSED_SIDER_WIDTH, HEADER_HEIGHT, SIDER_WIDTH } from "@/constants/dimensions";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { layoutStore, toggleDrawer } from "@/redux/slides/layout";
 import { Avatar } from "@mui/material";
 import { SlMenu } from "react-icons/sl";
 import "./style.css";
+import { useGetAuthUser } from "@/supabase/api/auth/services";
 
 function Header() {
   const dispatch = useAppDispatch();
   const { isCollapsedSider: collapsed } = useAppSelector(layoutStore);
+  const { data } = useGetAuthUser();
 
   return (
     <header
       className={`transition-effect fixed top-0 right-0 left-0 z-20 ${
-        collapsed
-          ? `layout-header-${COLLAPSED_SIDER_WIDTH}`
-          : `layout-header-${SIDER_WIDTH}`
+        collapsed ? `layout-header-${COLLAPSED_SIDER_WIDTH}` : `layout-header-${SIDER_WIDTH}`
       }`}
       style={{
         height: HEADER_HEIGHT,
@@ -37,9 +33,7 @@ function Header() {
             <SlMenu size={20} className="text-primary-color" />
           </button>
           <div className="flex items-center gap-x-2">
-            <h2 className="text-neutral-700 text-base xl:text-lg">
-              Administrator
-            </h2>
+            <h2 className="text-neutral-700 text-base xl:text-lg">{data?.email}</h2>
             <Avatar>AD</Avatar>
           </div>
         </div>
