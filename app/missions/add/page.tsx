@@ -7,8 +7,10 @@ import CreateTask from "./components/CreateTask";
 import { useCreateMission } from "@/supabase/api/mission/services";
 import { MISSIONS_PATH } from "@/constants/links";
 import { useRouter } from "next/navigation";
+import ChooseDiscordChannel from "./components/ChooseDiscordChannel";
+import { useGetListChannels, useSendDiscordMessage } from "@/app/api/services";
 
-const formFields = ["banner", "title", "duration", "description", "tasks", "mission_category_id"];
+const formFields = ["banner", "title", "duration", "description", "tasks", "mission_category_id", "channel_id", "role_id"];
 
 const steps = [
   {
@@ -23,31 +25,26 @@ const steps = [
     title: <span className="text-sm xl:text-base">Mission tasks</span>,
     getContent: (form: FormInstance) => <CreateTask form={form} />,
   },
+  {
+    title: <span className="text-sm xl:text-base">Discord Channel</span>,
+    getContent: () => <ChooseDiscordChannel />,
+  },
 ];
 
 const getDateString = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
 
-const sendMessageToDiscordChannel = async () => {
-  try {
-    fetch("/api/discord", {
-      method: "POST",
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 function MissionCreation() {
   const [current, setCurrent] = useState(0);
   const [form] = Form.useForm();
   const { mutate, isPending } = useCreateMission();
+  const { mutate: sendDiscordMessage } = useSendDiscordMessage();
+
   const router = useRouter();
   const next = () => {
     setCurrent(current + 1);
   };
-
   const prev = () => {
     setCurrent(current - 1);
   };
@@ -86,7 +83,11 @@ function MissionCreation() {
                         onSuccess: (resp) => {
                           if (resp !== undefined) {
                             router.push(MISSIONS_PATH);
-                            sendMessageToDiscordChannel();
+                            sendDiscordMessage({
+                              channel_id: values.channel_id,
+                              role_id: values.role_id,
+                              mission_id: resp.id,
+                            });
                           }
                         },
                       }
