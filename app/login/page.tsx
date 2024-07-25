@@ -1,5 +1,5 @@
 "use client";
-import banner from "@/assets/images/logo.png";
+import banner from "@/assets/images/discussion_forum.jpg";
 import Image from "next/image";
 import "../../styling/global.css";
 import { Button, Input } from "antd";
@@ -55,7 +55,7 @@ function Login() {
         </div>
       </div>
       <div className="lg:block hidden w-2/3 h-full overflow-hidden border-l-2 border-primary-color/20 bg-primary-color/10">
-        <Image className="w-full h-full object-contain" src={banner} alt="banner" />
+        <Image className="w-full h-full object-cover" src={banner} alt="banner" />
       </div>
     </div>
   );
