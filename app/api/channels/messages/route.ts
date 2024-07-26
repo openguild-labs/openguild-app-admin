@@ -4,6 +4,7 @@ import { NextRequest } from "next/server";
 export async function POST(request: NextRequest) {
   const data = (await request.json()) as TDiscordSendMessageRequest;
   console.log("=== data ", data);
+  const tags = data.role_ids.map((id) => `<@&${id}>`);
   const res = await fetch(`${DISCORD_API_BASE_URL}/channels/${data.channel_id}/messages`, {
     method: "POST",
     headers: {
@@ -12,7 +13,7 @@ export async function POST(request: NextRequest) {
       Authorization: `Bot ${DISCORD_BOT_TOKEN}`,
     },
     body: JSON.stringify({
-      content: `<@&${data.role_id}> ${OG_CLIENT_BASE_URL}/missions/${data.mission_id}`,
+      content: `${data.content}\n${OG_CLIENT_BASE_URL}/missions/${data.mission_id}\n${tags.join(" ")}`,
     }),
   });
   const r = await res.json();

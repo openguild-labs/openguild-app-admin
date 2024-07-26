@@ -40,6 +40,7 @@ type TDiscordRoleResponse = {
 
 type TDiscordSendMessageRequest = {
   channel_id: string;
-  role_id: string;
+  role_ids: string[];
   mission_id: number;
+  content: string;
 };

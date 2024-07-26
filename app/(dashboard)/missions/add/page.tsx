@@ -8,9 +8,9 @@ import { useCreateMission } from "@/supabase/api/mission/services";
 import { MISSIONS_PATH } from "@/constants/links";
 import { useRouter } from "next/navigation";
 import ChooseDiscordChannel from "./components/ChooseDiscordChannel";
-import { useGetListChannels, useSendDiscordMessage } from "@/app/api/services";
+import { useSendDiscordMessage } from "@/app/api/services";
 
-const formFields = ["banner", "title", "duration", "description", "tasks", "mission_category_id", "channel_id", "role_id"];
+const formFields = ["banner", "title", "duration", "description", "tasks", "mission_category_id", "channel_id", "role_ids", "content"];
 
 const steps = [
   {
@@ -85,8 +85,9 @@ function MissionCreation() {
                             router.push(MISSIONS_PATH);
                             sendDiscordMessage({
                               channel_id: values.channel_id,
-                              role_id: values.role_id,
+                              role_ids: values.role_ids,
                               mission_id: resp.id,
+                              content: values.content,
                             });
                           }
                         },
