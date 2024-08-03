@@ -19,11 +19,11 @@ function ProofsOfWork({ missionID }: TProofsOfWorkProps) {
       <h2 className="text-primary-color font-bold text-xl xl:text-2xl pr-3">Proofs of work</h2>
       <div className="flex gap-x-3 w-full pb-2 overflow-x-scroll mt-2">
         {data.map((proof) => {
-          const identity = proof.user.email ? proof.user.email : proof.user.username;
+          const identity = proof.user.discord || "";
           const isVerified = proof.is_verified;
           return (
             <div key={proof.id} className="bg-white rounded-lg shadow-md p-3 shrink-0 w-[320px] h-fit">
-              <h4 className="text-base xl:text-lg font-bold line-clamp-1">{identity}</h4>
+              <h4 className="text-base xl:text-lg font-bold line-clamp-1">@{identity}</h4>
               {proof.proof !== undefined && proof.proof !== "" && <TiptapRender content={proof.proof} />}
               {proof.image !== undefined && proof.image !== "" && (
                 <div className="w-full aspect-video rounded-md overflow-hidden">

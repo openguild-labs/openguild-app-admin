@@ -260,8 +260,7 @@ export const listPoW = async (missionID: string) => {
         is_verified,
         user (
           id,
-          email,
-          username
+          discord
         )
       `
     )
