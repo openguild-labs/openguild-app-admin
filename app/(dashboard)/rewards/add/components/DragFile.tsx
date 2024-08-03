@@ -31,13 +31,13 @@ function DragFile({ form, validation }: IDragFileProps) {
   }, [validation, files.length]);
 
   return (
-    <div className="h-fit w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <h4 className="text-base xl:text-lg text-black font-bold">Image</h4>
-      <div className={files.length > 0 ? "h-[320px]" : ""}>
+      <div className="w-full aspect-square">
         {files.length === 0 ? (
           <Form.Item
             name="image"
-            className="form-item-dragger"
+            className="form-item-dragger-square"
             getValueFromEvent={(event) => {
               return event?.fileList;
             }}
@@ -47,6 +47,9 @@ function DragFile({ form, validation }: IDragFileProps) {
                 message: "Reward must have an image",
               },
             ]}
+            style={{
+              height: "100%",
+            }}
           >
             <Dragger
               customRequest={({ onSuccess }) => {
@@ -61,7 +64,11 @@ function DragFile({ form, validation }: IDragFileProps) {
                 form.setFieldValue("image", info.fileList[0]);
                 handlePreview(info.fileList[0]);
               }}
-              className={`h-full ${isError ? "ant-upload-btn-error" : undefined}`}
+              className={`${isError ? "ant-upload-btn-error" : undefined}`}
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
             >
               <div className="flex flex-col items-center gap-y-2">
                 <p className="text-[32px]">

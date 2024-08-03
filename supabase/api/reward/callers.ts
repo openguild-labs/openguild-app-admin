@@ -70,27 +70,22 @@ export const getReward = async (id: string) => {
     return undefined;
   }
   const reward = data[0];
-  const getImagePromise = supabase.storage.from("reward_images").createSignedUrl(reward.image, EXPIRED_TIME);
+  const getImagePromise = supabase.storage.from("reward_images").getPublicUrl(reward.image);
   const getMissionPromise = supabase
     .from("mission")
     .select<string, TMissionModel>()
     .in("id", reward.requirements.split(","))
     .is("deleted_at", null);
 
-  const [{ data: imageData, error: imageError }, { data: missionData, error: missionError }] = await Promise.all([
-    getImagePromise,
-    getMissionPromise,
-  ]);
-  const errorIsNotNull = imageError !== null || missionError !== null;
-  const dataIsNull = imageData === null || missionData === null;
-  if (errorIsNotNull || dataIsNull) {
+  const [{ data: imageData }, { data: missionData, error: missionError }] = await Promise.all([getImagePromise, getMissionPromise]);
+  if (missionError !== null || missionData === null) {
     message.error("Error fetching reward");
     return undefined;
   }
 
   return {
     ...reward,
-    image_url: imageData.signedUrl,
+    image_url: imageData.publicUrl,
     missions: missionData,
   } as TRewardDetailResponse;
 };

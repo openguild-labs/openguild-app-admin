@@ -18,7 +18,7 @@ function MissionDetailsSkeleton() {
             width: "50%",
           }}
         />
-        <Skeleton.Image
+        <Skeleton.Button
           active
           style={{
             width: "100%",

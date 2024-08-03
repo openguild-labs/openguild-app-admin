@@ -12,6 +12,7 @@ import { useAppDispatch } from "@/redux/reduxHooks";
 import { setFooter } from "@/redux/slides/missionFooter";
 import ProofsOfWork from "./components/ProofsOfWork";
 import { useEffect } from "react";
+import MissionFeatured from "./components/MissionFeatured";
 
 interface IMissionDetailsProps {
   params: {
@@ -57,6 +58,13 @@ function MissionDetails({ params }: IMissionDetailsProps) {
         <MissionDuration
           startDate={data.start_date}
           endDate={data.end_date}
+          missionID={missionID}
+          refetch={() => {
+            refetch();
+          }}
+        />
+        <MissionFeatured
+          isFeatured={data.is_featured}
           missionID={missionID}
           refetch={() => {
             refetch();

@@ -12,7 +12,7 @@ interface IFloatButtonsProps {
 function FloatButtons({ onSave, onCancel, isLoading, relative = false }: IFloatButtonsProps) {
   return (
     <div
-      className="flex right-0 gap-x-1 z-10"
+      className="flex right-0 gap-x-1 z-30"
       style={{
         position: relative ? "relative" : "absolute",
         top: relative ? "auto" : "-2.25rem",

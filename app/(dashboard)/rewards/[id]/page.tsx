@@ -44,8 +44,8 @@ function RewardDetails({ params }: IRewardDetailsProps) {
         <RewardImage image={data.image} imageURL={data.image_url} rewardID={rewardID} refetch={refetchData} />
       </div>
       <div className="w-[60%]">
-        <RewardDescription description={data.description} rewardID={rewardID} refetch={refetchData} />
         <Requirements requirements={data.missions} rewardID={rewardID} refetch={refetchData} />
+        <RewardDescription description={data.description} rewardID={rewardID} refetch={refetchData} />
       </div>
     </div>
   );

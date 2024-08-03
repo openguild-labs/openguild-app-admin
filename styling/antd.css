@@ -83,8 +83,7 @@
   height: 100%;
   padding-inline-start: 24px;
   padding-inline-end: 9px;
-  transition: padding-inline-start 0.2s ease-in-out,
-    padding-inline-end 0.2s ease-in-out;
+  transition: padding-inline-start 0.2s ease-in-out, padding-inline-end 0.2s ease-in-out;
 }
 .ant-switch .ant-switch-handle::before {
   position: absolute;
@@ -101,6 +100,11 @@
 
 .form-item-dragger .ant-form-item-control-input-content {
   height: 320px;
+}
+
+.form-item-dragger-square .ant-form-item-control-input-content {
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 .form-item-hidden .ant-form-item-control-input {

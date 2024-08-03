@@ -76,6 +76,9 @@ function DragFile({ form }: IDragFileProps) {
             setFiles([]);
             form.setFieldValue("banner", undefined);
           }}
+          style={{
+            width: "302px",
+          }}
         />
       )}
     </div>

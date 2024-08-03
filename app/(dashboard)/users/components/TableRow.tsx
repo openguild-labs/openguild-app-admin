@@ -4,7 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { FaXTwitter } from "react-icons/fa6";
 import { AiOutlineDiscord } from "react-icons/ai";
-import { LiaTelegram } from "react-icons/lia";
+import { LiaGithub } from "react-icons/lia";
 import { CiFacebook } from "react-icons/ci";
 
 interface ITableRowProps {
@@ -57,8 +57,8 @@ function TableRow({ data }: ITableRowProps) {
               </div>
               <div className="w-1/2 flex flex-col gap-y-2">
                 <div className="flex items-center justify-start gap-x-2">
-                  <LiaTelegram size={20} />
-                  <span className="text-sm xl:text-base">{data.telegram || "--"}</span>
+                  <LiaGithub size={22} />
+                  <span className="text-sm xl:text-base">{data.github || "--"}</span>
                 </div>
                 <div className="flex items-center justify-start gap-x-2">
                   <CiFacebook size={20} />

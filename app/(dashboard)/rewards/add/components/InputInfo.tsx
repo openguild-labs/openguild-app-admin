@@ -2,7 +2,7 @@ import TipTap from "@/components/TipTap";
 import { TIPTAP_EMPTY_STRING } from "@/components/TipTap/TipTap";
 import colors from "@/config/colors";
 import { rewardType } from "@/constants/types";
-import { Form, FormInstance, Input, Select } from "antd";
+import { Checkbox, Form, FormInstance, Input, InputNumber, Radio, Select } from "antd";
 import { useEffect, useState } from "react";
 
 interface IInputInfoProps {
@@ -13,6 +13,7 @@ interface IInputInfoProps {
 function InputInfo({ form, validation }: IInputInfoProps) {
   const [description, setDescription] = useState("");
   const [isError, setIsError] = useState(false);
+  const [isInfinity, setIsInfinity] = useState(false);
   const error = isError ? [<span className="text-error text-sm xl:text-base">Please input description</span>] : undefined;
 
   useEffect(() => {
@@ -39,7 +40,25 @@ function InputInfo({ form, validation }: IInputInfoProps) {
       </div>
 
       <div>
-        <h4 className="text-base xl:text-lg text-black font-bold mb-1">Quantity</h4>
+        <div className="flex gap-x-4">
+          <h4 className="text-base xl:text-lg text-black font-bold mb-1">Quantity</h4>
+          <div className="flex">
+            <Checkbox
+              value={isInfinity}
+              onChange={(e) => {
+                setIsInfinity(e.target.checked);
+                if (e.target.checked) {
+                  form.setFieldValue("quantity", 0);
+                } else {
+                  form.setFieldValue("quantity", 1);
+                }
+              }}
+              className="flex items-center"
+            >
+              infinity
+            </Checkbox>
+          </div>
+        </div>
         <Form.Item
           name="quantity"
           rules={[
@@ -47,9 +66,14 @@ function InputInfo({ form, validation }: IInputInfoProps) {
               required: true,
               message: "Please input quantity",
             },
+            {
+              type: "number",
+              min: isInfinity ? 0 : 1,
+              message: "Quantity must be greater than 0",
+            },
           ]}
         >
-          <Input placeholder="Input reward quantity" className="text-sm xl:text-base" type="number" />
+          <InputNumber defaultValue={1} disabled={isInfinity} placeholder="Input reward quantity" className="text-sm xl:text-base w-full" />
         </Form.Item>
       </div>
 

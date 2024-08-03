@@ -1,18 +1,19 @@
-import { Image } from "antd";
+import { Image, ImageProps } from "antd";
 import { AiOutlineDelete } from "react-icons/ai";
 import "./style.css";
 
-interface IPreviewImageProps {
+interface IPreviewImageProps extends ImageProps {
   previewImage: string;
   onClick: () => void;
   icon?: React.ReactNode;
   label?: React.ReactNode;
+  className?: string;
 }
 
-function PreviewImage({ previewImage, onClick, icon, label }: IPreviewImageProps) {
+function PreviewImage({ previewImage, onClick, icon, label, ...props }: IPreviewImageProps) {
   return (
-    <div className="w-full h-full flex justify-center dash-border p-2 relative wrap-image">
-      <Image loading="lazy" className="max-h-full min-h-full w-full object-cover" src={previewImage} preview={false} alt="banner" />
+    <div className="size-full flex justify-center dash-border p-2 relative wrap-image">
+      <Image loading="lazy" className="h-full aspect-square object-cover" src={previewImage} preview={false} alt="banner" {...props} />
 
       <div className="absolute inset-2 rounded-sm bg-black bg-opacity-20 flex justify-center items-center transition-effect delete-frame">
         <div

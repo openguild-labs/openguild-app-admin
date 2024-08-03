@@ -120,7 +120,7 @@ export const getMission = async (id: string) => {
   }
 
   const mission = data[0];
-  const getBannerPromise = supabase.storage.from("banners").createSignedUrl(mission.banner, EXPIRED_TIME);
+  const getBannerPromise = supabase.storage.from("banners").getPublicUrl(mission.banner);
   const getTasksPromise = supabase
     .from("task")
     .select<string, TTaskModel>()
@@ -134,19 +134,19 @@ export const getMission = async (id: string) => {
     .is("deleted_at", null);
 
   const [
-    { data: bannerData, error: fetchBannerError },
+    { data: bannerData },
     { data: tasksData, error: fetchTasksError },
     { data: missionCategoryData, error: fetchMissionCategoryError },
   ] = await Promise.all([getBannerPromise, getTasksPromise, getMissionCategoryPromise]);
 
-  const errorIsNotNull = fetchBannerError !== null || fetchTasksError !== null || fetchMissionCategoryError !== null;
-  const dataIsNull = bannerData === null || tasksData === null || missionCategoryData === null;
+  const errorIsNotNull = fetchTasksError !== null || fetchMissionCategoryError !== null;
+  const dataIsNull = tasksData === null || missionCategoryData === null;
   if (errorIsNotNull || dataIsNull) {
     message.error("Error fetching data");
     return undefined;
   }
 
-  const banner_url = bannerData.signedUrl;
+  const banner_url = bannerData.publicUrl;
   return { ...mission, banner_url, tasks: tasksData, mission_category: missionCategoryData[0] } as TMissionDetailResponse;
 };
 
@@ -282,16 +282,10 @@ export const listPoW = async (missionID: string) => {
     }
 
     if (images.length > 0) {
-      const { data, error } = await supabase.storage.from("proofs_of_work").createSignedUrls(images, EXPIRED_TIME);
-      if (error !== null || data === null) {
-        message.error("Error fetching proofs of work");
-        return undefined;
-      }
+      const imageResp = await Promise.all(images.map((image) => supabase.storage.from("proofs_of_work").getPublicUrl(image)));
+
       for (let i = 0; i < powData.length; i++) {
-        const powImage = data.find((image) => image.path === powData[i].image);
-        if (powImage !== undefined) {
-          powData[i].image_url = powImage.signedUrl;
-        }
+        powData[i].image_url = imageResp[i].data.publicUrl;
       }
     }
   }

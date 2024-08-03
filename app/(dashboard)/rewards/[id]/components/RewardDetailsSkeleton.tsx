@@ -25,7 +25,7 @@ function RewardDetailsSkeleton() {
             width: "20%",
           }}
         />
-        <Skeleton.Image
+        <Skeleton.Button
           active
           style={{
             width: "100%",

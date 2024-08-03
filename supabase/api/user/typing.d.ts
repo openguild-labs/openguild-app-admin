@@ -11,20 +11,6 @@ type TUserUpdate = {
   last_name?: string;
 };
 
-type TUserModel = {
-  id: number;
-  email: string;
-  wallet_address: string;
-  first_name: string;
-  last_name: string;
-  is_student: boolean;
-  username: string;
-  telegram: string;
-  facebook: string;
-  twitter: string;
-  discord: string;
-};
-
 type TUserListResponse = {
   list: TUserModel[];
   total: number;

@@ -14,7 +14,7 @@ interface TTaskFormItemsProps {
   descriptionDefault?: string;
 }
 
-const WORKSHOP_TYPE = "Workshop";
+const POW_TYPE = "PoW";
 
 function TaskFormItems({
   form,
@@ -73,8 +73,8 @@ function TaskFormItems({
               label: socialMedia.twitter,
             },
             {
-              value: WORKSHOP_TYPE,
-              label: WORKSHOP_TYPE,
+              value: POW_TYPE,
+              label: POW_TYPE,
             },
           ]}
           onChange={(value) => {
@@ -101,7 +101,7 @@ function TaskFormItems({
         <Input placeholder="Input XP" className="text-sm xl:text-base" type="number" />
       </Form.Item>
 
-      {taskType !== WORKSHOP_TYPE && (
+      {taskType !== POW_TYPE && (
         <>
           {isTwitter && !isManual && <IntentGenerator />}
           <div className="flex items-center gap-x-3">

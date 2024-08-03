@@ -11,12 +11,14 @@ import TableRow from "@tiptap/extension-table-row";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import { forwardRef, Ref, useEffect, useImperativeHandle, useState } from "react";
 import { Button, Modal, Upload, UploadFile, UploadProps } from "antd";
 import { CiImageOn } from "react-icons/ci";
 import { FiPlus } from "react-icons/fi";
 import { resizeFile } from "@/utils/file";
+import { RichTextLink } from "./rich-text-link";
 
 export const TIPTAP_EMPTY_STRING = "<p></p>";
 
@@ -51,6 +53,7 @@ const extensions = [
   TableRow,
   TableHeader,
   TableCell,
+  RichTextLink,
 ];
 
 interface ITipTapProps {

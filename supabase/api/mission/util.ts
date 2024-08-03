@@ -1,8 +1,13 @@
 import { supabase } from "@/supabase";
 import { UploadFile } from "antd";
+import webpfy from "webpfy";
 
 export const uploadBanner = async (missionID: number, file: UploadFile) => {
-  const { data, error } = await supabase.storage.from("banners").upload(`${missionID}/${file.name}`, file.originFileObj as Blob);
+  const { webpBlob, fileName } = await webpfy({
+    image: file.originFileObj as Blob,
+    quality: 0.8,
+  });
+  const { data, error } = await supabase.storage.from("banners").upload(`${missionID}/${fileName}`, webpBlob);
   if (error !== null) {
     return "";
   }
