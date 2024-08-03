@@ -8,7 +8,7 @@ import { useCreateReward } from "@/supabase/api/reward/services";
 import { REWARDS_PATH } from "@/constants/links";
 import { useRouter } from "next/navigation";
 
-const formFields = ["image", "name", "quantity", "type", "description", "requirements"];
+const formFields = ["image", "name", "quantity", "type", "description", "requirements", "is_shared"];
 
 function RewardCreation() {
   const [form] = Form.useForm();

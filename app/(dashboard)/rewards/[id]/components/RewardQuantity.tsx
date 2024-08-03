@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Checkbox, Input, InputNumber } from "antd";
 import { useState } from "react";
 import FloatButtons from "@/components/FloatButtons";
 import { useUpdateReward } from "@/supabase/api/reward/services";
@@ -11,11 +11,12 @@ interface IRewardQuantityProps {
 
 function RewardQuantity({ quantity, rewardID, refetch }: IRewardQuantityProps) {
   const [value, setValue] = useState<number>(quantity);
+  const [isInfinity, setIsInfinity] = useState<boolean>(quantity === 0);
   const [editMode, setEditMode] = useState<boolean>(false);
   const { mutate, isPending } = useUpdateReward();
 
   const onSave = () => {
-    if (value < 1) {
+    if ((value < 1 && !isInfinity) || (value !== 0 && isInfinity)) {
       onCancel();
       return;
     }
@@ -36,6 +37,7 @@ function RewardQuantity({ quantity, rewardID, refetch }: IRewardQuantityProps) {
 
   const onCancel = () => {
     setValue(quantity);
+    setIsInfinity(quantity === 0);
     setEditMode(false);
   };
 
@@ -51,12 +53,24 @@ function RewardQuantity({ quantity, rewardID, refetch }: IRewardQuantityProps) {
       }}
     >
       {editMode ? (
-        <div className="relative">
+        <div className="relative flex items-center">
           <FloatButtons onSave={onSave} onCancel={onCancel} isLoading={isPending} />
-          <Input
-            value={value}
+          <Checkbox
+            checked={isInfinity}
             onChange={(e) => {
-              setValue(Number(e.target.value));
+              const val = e.target.checked;
+              setIsInfinity(val);
+              setValue(val ? 0 : 1);
+            }}
+            className="flex items-center"
+          >
+            infinity
+          </Checkbox>
+          <InputNumber
+            value={value}
+            disabled={isInfinity}
+            onChange={(value) => {
+              if (value !== null) setValue(value);
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -65,13 +79,14 @@ function RewardQuantity({ quantity, rewardID, refetch }: IRewardQuantityProps) {
                 onCancel();
               }
             }}
-            className="text-sm xl:text-base"
+            className="text-sm xl:text-base w-full"
             type="number"
           />
         </div>
       ) : (
-        <div className="text-sm xl:text-base">
-          <span className="text-primary-color font-bold">Quantity</span>: {value}
+        <div className="text-sm xl:text-base flex items-end gap-x-2">
+          <span className="text-primary-color font-bold">Quantity:</span>
+          {value === 0 ? <span className="text-xl leading-4 xl:leading-5 flex items-center">∞</span> : value}
         </div>
       )}
     </div>

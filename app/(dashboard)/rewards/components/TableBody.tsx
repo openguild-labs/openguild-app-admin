@@ -55,7 +55,9 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
             <div className="text-sm xl:text-base">{row.type}</div>
           </TableCell>
           <TableCell>
-            <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.quantity}</div>
+            <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">
+              {row.quantity === 0 ? <span className="text-2xl leading-4">∞</span> : row.quantity}
+            </div>
           </TableCell>
           <TableCell>
             <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.created_at.split("T")[0]}</div>

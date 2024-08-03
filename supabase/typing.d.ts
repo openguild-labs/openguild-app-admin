@@ -52,6 +52,7 @@ type TRewardModel = {
   type: string;
   requirements: string;
   image: string;
+  is_shared: boolean;
   created_at: string;
 };
 

@@ -1,5 +1,5 @@
 import MissionListModal from "@/components/MissionListModal";
-import { Button, Form, FormInstance } from "antd";
+import { Button, Checkbox, Form, FormInstance, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
 import { MdOutlineDelete } from "react-icons/md";
@@ -25,7 +25,14 @@ function InputRequirement({ form, validation }: IInputRequirementProps) {
 
   return (
     <div>
-      <h4 className="text-base xl:text-lg text-black font-bold">Requirements</h4>
+      <div className="flex items-center gap-x-4">
+        <h4 className="text-base xl:text-lg text-black font-bold">Requirements</h4>
+        <Form.Item name="is_shared" valuePropName="checked">
+          <Checkbox className="text-sm xl:text-base">
+            <Tooltip title="Users only need to complete one of the requirements to receive the Reward">Shared Reward</Tooltip>
+          </Checkbox>
+        </Form.Item>
+      </div>
       <div className="mt-[2px]">
         {requirements.map((requirement) => {
           return (

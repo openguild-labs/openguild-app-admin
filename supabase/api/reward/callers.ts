@@ -13,6 +13,7 @@ export const createReward = async (rewardCreation: TRewardCreation<UploadFile>) 
       quantity: rewardCreation.quantity,
       type: rewardCreation.type,
       requirements: rewardCreation.requirements,
+      is_shared: rewardCreation.is_shared,
     })
     .select<string, TRewardModel>();
 
@@ -97,7 +98,7 @@ export const updateReward = async (update: TRewardUpdate) => {
       update.updates.reduce((acc, current) => {
         acc[current.key] = current.value;
         return acc;
-      }, {} as Record<string, string | number>)
+      }, {} as Record<string, string | number | boolean>)
     )
     .eq("id", update.rewardID);
   if (error !== null) {

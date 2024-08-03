@@ -1,13 +1,14 @@
 import FloatButtons from "@/components/FloatButtons";
 import MissionListModal from "@/components/MissionListModal";
 import { useUpdateReward } from "@/supabase/api/reward/services";
-import { Button } from "antd";
+import { Button, Checkbox, Tooltip } from "antd";
 import { useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
 import { MdOutlineDelete } from "react-icons/md";
 
 interface IRequirementsProps {
   requirements: TMissionModel[];
+  isShared: boolean;
   rewardID: string;
   refetch: () => void;
 }
@@ -17,15 +18,39 @@ const isDifferent = (arr1: number[], arr2: number[]) => {
   return arr1.length !== arr2.length || arr1.some((item) => !arr2.includes(item)) || arr2.some((item) => !arr1.includes(item));
 };
 
-function Requirements({ requirements, rewardID, refetch }: IRequirementsProps) {
+function Requirements({ requirements, rewardID, isShared, refetch }: IRequirementsProps) {
   const [missions, setMissions] = useState<TMissionModel[]>(requirements);
+  const [isChecked, setIsChecked] = useState(isShared);
   const [openModal, setOpenModal] = useState(false);
   const { mutate, isPending } = useUpdateReward();
 
   return (
     <div>
       <div className="flex mb-1 items-end justify-between gap-x-2 h-8">
-        <span className="text-base xl:text-lg font-bold text-primary-color text-end">Requirements</span>
+        <div className="flex items-center gap-x-4">
+          <span className="text-base xl:text-lg font-bold text-primary-color text-end">Requirements</span>
+          <Checkbox
+            className="text-sm xl:text-base"
+            checked={isChecked}
+            onChange={(e) => {
+              const value = e.target.checked;
+              setIsChecked(value);
+              mutate(
+                {
+                  rewardID,
+                  updates: [{ key: "is_shared", value }],
+                },
+                {
+                  onSuccess: () => {
+                    refetch();
+                  },
+                }
+              );
+            }}
+          >
+            <Tooltip title="Users only need to complete one of the requirements to receive the Reward">Shared Reward</Tooltip>
+          </Checkbox>
+        </div>
         {isDifferent(
           requirements.map((item) => item.id),
           missions.map((item) => item.id)

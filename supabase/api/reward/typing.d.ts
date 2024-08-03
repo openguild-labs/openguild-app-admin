@@ -5,6 +5,7 @@ type TRewardCreation<TBanner> = {
   quantity: number;
   type: string;
   requirements: string;
+  is_shared: boolean;
 };
 
 type TRewardDetailResponse = TRewardModel & {
@@ -14,7 +15,7 @@ type TRewardDetailResponse = TRewardModel & {
 
 type TRewardUpdateMap = {
   key: keyof TRewardModel;
-  value: string | number;
+  value: string | number | boolean;
 };
 
 type TRewardUpdate = {
