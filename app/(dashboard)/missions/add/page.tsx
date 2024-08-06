@@ -87,7 +87,7 @@ function MissionCreation() {
                               channel_id: values.channel_id,
                               role_ids: values.role_ids,
                               mission_id: resp.id,
-                              content: values.content,
+                              content: values.content === undefined ? "" : values.content,
                             });
                           }
                         },
