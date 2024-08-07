@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Admin OpenGuild App
 
-## Getting Started
+Using NextJS v14.2.5
 
-First, run the development server:
+## How to run.
+
+1. Install packages
+
+```bash
+npm i
+```
+
+2. Create .env file
+
+3. Run project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+|- app: This is where to create and configure for pages in Nextjs.
+|- assets: Collections of assets like images.
+|- components: Common, re-usable components.
+|- config: store the configuration
+|- constants: All constants in the app.
+|- supabase: Configurations, endpoints and functions to interact with Supabase.
+|- utils: Utility functions.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Env variables
 
-## Learn More
+`NEXT_PUBLIC_SUPABASE_URL`: Supabase URL
+`NEXT_PUBLIC_SUPABASE_KEY`: Supabase key
+`NEXT_PUBLIC_BOT_TOKEN`: Discord Bot token
+`NEXT_PUBLIC_GUILD_ID`: Discord Guild ID
+`NEXT_PUBLIC_OG_CLIENT_BASE_URL`: base URL of OpenGuild client website
+`NEXT_PUBLIC_DISCORD_API_BASE_URL`: base URL of Discord API
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment with Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Deploy following this guideline for NextJS application: https://nextjs.org/learn-pages-router/basics/deploying-nextjs-app/deploy
+- Add the _Environment Variable_ above to avoid publishing the .env file
