@@ -163,6 +163,14 @@ Run SQL codes below in **SQL Editor** tab.
 ## Storage creation
 
 Create buckets `proofs_of_work`, `banners`, `reward_images` and set public for them in **Storage** tab.
+To re-use image for Mission or Reward:
+ - create a folder named `common` or anything else in:
+    - bucket `banners`, if Mission
+    - bucket `reward_images`, if Reward
+ - upload image to that folder and get path of image
+ - paste that path to:
+    - column `banner` of table `mission`, if Mission
+    - column `image` of table `reward`, if Reward
 
 ## Policy creation
 
@@ -179,3 +187,7 @@ In **Authentication/Policies** tab, with each table:
 In **Storage/Policies** tab, 
 - buckets `banners` and `reward_images`:  grant all operations for `authenticated` and `SELECT` for `service_role`.
 - bucket `proofs_of_work`: grant all operations for `authenticated` and `INSERT` for `service_role`.
+
+## Admin account creation
+
+To login Admin Dashboard, create an user in **Authentication/Users** tab
