@@ -56,10 +56,15 @@ npm run dev
 ## Env variables
 
 `NEXT_PUBLIC_SUPABASE_URL`: Supabase URL, take it in API Settings tab, Project Dashboard
+
 `NEXT_PUBLIC_SUPABASE_KEY`: Supabase `service_role` key, take it in API Settings tab, Project Dashboard
+
 `NEXT_PUBLIC_BOT_TOKEN`: Discord Bot token
+
 `NEXT_PUBLIC_GUILD_ID`: Discord Guild ID
+
 `NEXT_PUBLIC_OG_CLIENT_BASE_URL`: base URL of OpenGuild client website
+
 `NEXT_PUBLIC_DISCORD_API_BASE_URL`: base URL of Discord API
 
 ## Deployment with Vercel
