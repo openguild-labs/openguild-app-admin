@@ -7,8 +7,6 @@ import CreateTask from "./components/CreateTask";
 import { useCreateMission } from "@/supabase/api/mission/services";
 import { MISSIONS_PATH } from "@/constants/links";
 import { useRouter } from "next/navigation";
-import ChooseDiscordChannel from "./components/ChooseDiscordChannel";
-import { useSendDiscordMessage } from "@/app/api/services";
 
 const formFields = ["banner", "title", "duration", "description", "tasks", "mission_category_id", "channel_id", "role_ids", "content"];
 
@@ -25,10 +23,6 @@ const steps = [
     title: <span className="text-sm xl:text-base">Mission tasks</span>,
     getContent: (form: FormInstance) => <CreateTask form={form} />,
   },
-  {
-    title: <span className="text-sm xl:text-base">Discord Channel</span>,
-    getContent: () => <ChooseDiscordChannel />,
-  },
 ];
 
 const getDateString = (date: Date) => {
@@ -39,7 +33,6 @@ function MissionCreation() {
   const [current, setCurrent] = useState(0);
   const [form] = Form.useForm();
   const { mutate, isPending } = useCreateMission();
-  const { mutate: sendDiscordMessage } = useSendDiscordMessage();
 
   const router = useRouter();
   const next = () => {
@@ -83,12 +76,6 @@ function MissionCreation() {
                         onSuccess: (resp) => {
                           if (resp !== undefined) {
                             router.push(MISSIONS_PATH);
-                            sendDiscordMessage({
-                              channel_id: values.channel_id,
-                              role_ids: values.role_ids,
-                              mission_id: resp.id,
-                              content: values.content === undefined ? "" : values.content,
-                            });
                           }
                         },
                       }
