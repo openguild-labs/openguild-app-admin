@@ -1,14 +1,16 @@
 import { MISSIONS_PATH } from "@/constants/links";
 import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow } from "@mui/material";
-import { Empty } from "antd";
+import { Empty, Popconfirm } from "antd";
 import { useRouter } from "next/navigation";
+import { MdDeleteOutline } from "react-icons/md";
 
 interface ITableBodyProps {
   data: TMissionResponse[];
   isLoading: boolean;
+  onDelete: (id: string) => void;
 }
 
-function TableBody({ data, isLoading }: ITableBodyProps) {
+function TableBody({ data, isLoading, onDelete }: ITableBodyProps) {
   const router = useRouter();
   if (isLoading) {
     return (
@@ -43,7 +45,7 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
       {data.map((row) => (
         <TableRow
           key={row.id}
-          className="transition-effect hover:cursor-pointer hover:bg-gray-200"
+          className="transition-effect hover:cursor-pointer hover:bg-gray-200 group"
           onClick={() => {
             router.push(`${MISSIONS_PATH}/${row.id}`);
           }}
@@ -59,6 +61,38 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
           </TableCell>
           <TableCell>
             <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.created_at}</div>
+          </TableCell>
+          <TableCell
+            sx={{
+              width: "44px",
+              height: "52px",
+              padding: "0px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Popconfirm
+              title="Delete the mission"
+              description="Are you sure to delete this mission?"
+              okText="Delete"
+              onCancel={(event) => {
+                event?.stopPropagation();
+              }}
+              onConfirm={(event) => {
+                event?.stopPropagation();
+                onDelete(String(row.id));
+              }}
+            >
+              <div
+                className="size-8 justify-center items-center rounded-full transition-effect group-hover:flex hidden hover:bg-red-500/20"
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                <MdDeleteOutline className="text-red-500 size-5" />
+              </div>
+            </Popconfirm>
           </TableCell>
         </TableRow>
       ))}

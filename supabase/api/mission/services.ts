@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createMission,
   createTask,
+  deleteMission,
   deleteTask,
   getMission,
   listAllMissions,
@@ -99,5 +100,11 @@ export const useListPoW = (missionID: string) => {
 export const useVerifyPoW = () => {
   return useMutation({
     mutationFn: (powID: number) => verifyPoW(powID),
+  });
+};
+
+export const useDeleteMission = () => {
+  return useMutation({
+    mutationFn: (missionID: string) => deleteMission(missionID),
   });
 };

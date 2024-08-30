@@ -299,3 +299,13 @@ export const verifyPoW = async (PoWID: number) => {
   }
   return true;
 };
+
+export const deleteMission = async (missionID: string) => {
+  const { error } = await supabase.from("mission").update({ deleted_at: new Date().toISOString() }).eq("id", missionID);
+  if (error !== null) {
+    message.error("Error deleting mission");
+    return false;
+  }
+
+  return true;
+};

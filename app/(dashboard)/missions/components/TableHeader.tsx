@@ -75,6 +75,7 @@ function TableHeader() {
           <StyledTableCell>
             <div className="text-white font-bold text-sm xl:text-base my-2 min-w-[90px] flex justify-between items-center">Created at</div>
           </StyledTableCell>
+          <StyledTableCell />
         </TableRow>
       </TableHead>
     </>
