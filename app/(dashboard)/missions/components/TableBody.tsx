@@ -12,6 +12,7 @@ interface ITableBodyProps {
 
 function TableBody({ data, isLoading, onDelete }: ITableBodyProps) {
   const router = useRouter();
+
   if (isLoading) {
     return (
       <TableBodyMUI>
@@ -60,16 +61,12 @@ function TableBody({ data, isLoading, onDelete }: ITableBodyProps) {
             <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.participants}</div>
           </TableCell>
           <TableCell>
-            <div className="text-sm xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.created_at}</div>
+            <div className="text-sm w- xl:text-base text-ellipsis line-clamp-1 overflow-hidden">{row.created_at}</div>
           </TableCell>
           <TableCell
             sx={{
               width: "44px",
-              height: "52px",
-              padding: "0px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              padding: "4px",
             }}
           >
             <Popconfirm
@@ -85,7 +82,7 @@ function TableBody({ data, isLoading, onDelete }: ITableBodyProps) {
               }}
             >
               <div
-                className="size-8 justify-center items-center rounded-full transition-effect group-hover:flex hidden hover:bg-red-500/20"
+                className="size-8 flex justify-center items-center rounded-full opacity-0 group-hover:opacity-100 transition-effect hover:bg-red-500/20"
                 onClick={(event) => {
                   event.stopPropagation();
                 }}
