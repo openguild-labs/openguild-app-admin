@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { message, UploadFile } from "antd";
-import { countTotalRewards, createReward, getReward, listRewards, updateImage, updateReward } from "./callers";
+import { countTotalRewards, createReward, deleteReward, getReward, listRewards, updateImage, updateReward } from "./callers";
 
 export const rewardKey = {
   reward: "reward",
@@ -49,5 +49,11 @@ export const useUpdateReward = () => {
 export const useUpdateImage = () => {
   return useMutation({
     mutationFn: (update: TUpdateImage) => updateImage(update),
+  });
+};
+
+export const useDeleteReward = () => {
+  return useMutation({
+    mutationFn: (id: string) => deleteReward(id),
   });
 };

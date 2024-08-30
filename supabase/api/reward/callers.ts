@@ -121,3 +121,13 @@ export const updateImage = async ({ rewardID, oldImage, file }: TUpdateImage) =>
     message.error("Error updating image");
   }
 };
+
+export const deleteReward = async (id: string) => {
+  const { error } = await supabase.from("reward").update({ deleted_at: new Date().toISOString() }).eq("id", id);
+  if (error !== null) {
+    message.error("Error deleting reward");
+    return false;
+  }
+
+  return true;
+};
