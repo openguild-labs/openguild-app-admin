@@ -91,7 +91,7 @@ function MissionDetails({ params }: IMissionDetailsProps) {
         <Divider orientation="left">
           <span className="text-lg xl:text-xl">Category</span>
         </Divider>
-        <MissionCategory missionID={missionID} category={data.mission_category} refetch={() => refetch()} />
+        {data.mission_category && <MissionCategory missionID={missionID} category={data.mission_category} refetch={() => refetch()} />}
         <Divider orientation="left">
           <span className="text-lg xl:text-xl">Task list</span>
         </Divider>
