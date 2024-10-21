@@ -22,6 +22,7 @@ function TableHeader() {
           <StyledTableCell>
             <div className="text-white font-bold text-sm xl:text-base my-2">Description</div>
           </StyledTableCell>
+          <StyledTableCell />
         </TableRow>
       </TableHead>
     </>

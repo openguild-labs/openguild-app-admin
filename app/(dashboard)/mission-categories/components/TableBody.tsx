@@ -1,16 +1,18 @@
 import { CircularProgress, TableBody as TableBodyMUI, TableCell, TableRow } from "@mui/material";
-import { Empty, Form, message } from "antd";
+import { Empty, Form, Popconfirm, message } from "antd";
 import ModalForm from "./ModalForm";
 import { useState } from "react";
 import { missionCategoryKey, useUpdateMissionCategory } from "@/supabase/api/missionCategory/service";
 import { useQueryClient } from "@tanstack/react-query";
+import { MdDeleteOutline } from "react-icons/md";
 
 interface ITableBodyProps {
   data: TMissionCategoryModel[];
   isLoading: boolean;
+  onDelete: (id: string) => void;
 }
 
-function TableBody({ data, isLoading }: ITableBodyProps) {
+function TableBody({ data, isLoading, onDelete }: ITableBodyProps) {
   const [form] = Form.useForm();
   const [openModal, setOpenModal] = useState(false);
   const [currentID, setCurrentID] = useState(0);
@@ -50,7 +52,7 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
       {data.map((row) => (
         <TableRow
           key={row.id}
-          className="transition-effect hover:cursor-pointer hover:bg-gray-200"
+          className="transition-effect hover:cursor-pointer hover:bg-gray-200 group"
           onClick={() => {
             form.setFieldValue("name", row.name);
             form.setFieldValue("description", row.description);
@@ -63,6 +65,34 @@ function TableBody({ data, isLoading }: ITableBodyProps) {
           </TableCell>
           <TableCell>
             <div className="text-sm xl:text-base text-ellipsis line-clamp-1">{row.description}</div>
+          </TableCell>
+          <TableCell
+            sx={{
+              width: "44px",
+              padding: "4px",
+            }}
+          >
+            <Popconfirm
+              title="Delete the category"
+              description="Are you sure to delete this category?"
+              okText="Delete"
+              onCancel={(event) => {
+                event?.stopPropagation();
+              }}
+              onConfirm={(event) => {
+                event?.stopPropagation();
+                onDelete(String(row.id));
+              }}
+            >
+              <div
+                className="size-8 flex justify-center items-center rounded-full opacity-0 group-hover:opacity-100 transition-effect hover:bg-red-500/20"
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                <MdDeleteOutline className="text-red-500 size-5" />
+              </div>
+            </Popconfirm>
           </TableCell>
         </TableRow>
       ))}

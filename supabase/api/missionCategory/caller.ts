@@ -63,3 +63,13 @@ export const updateMissionCategory = async (id: number, req: TMissionCategoryUpd
 
   return data[0];
 };
+
+export const deleteMissionCategory = async (id: string) => {
+  const { error } = await supabase.from("mission_category").update({ deleted_at: new Date().toISOString() }).eq("id", id);
+  if (error !== null) {
+    message.error("Error deleting mission category");
+    return false;
+  }
+
+  return true;
+};

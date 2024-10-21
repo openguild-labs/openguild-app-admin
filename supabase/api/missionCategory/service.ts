@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   countTotalMissionsCategories,
   createMissionCategory,
+  deleteMissionCategory,
   listAllMissionsCategories,
   listMissionsCategories,
   updateMissionCategory,
@@ -42,5 +43,11 @@ export const useListAllMissionCategories = () => {
   return useQuery({
     queryKey: [missionCategoryKey.allMissionsCategories],
     queryFn: () => listAllMissionsCategories(),
+  });
+};
+
+export const useDeleteMissionCategory = () => {
+  return useMutation({
+    mutationFn: (id: string) => deleteMissionCategory(id),
   });
 };
